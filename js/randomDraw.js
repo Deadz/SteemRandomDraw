@@ -244,7 +244,7 @@ $('#link_form').submit(function(event)
 	if(getAuthorPermlink(link_full) == true)
 	{
 		getInfoFull(sessionStorage.getItem("author"), sessionStorage.getItem("permlink"));
-		setTimeout(getRandomDraw, 1000);
+		setTimeout(getRandomDraw, 1200);
 		sessionStorage.clear();
 	}
 	else
