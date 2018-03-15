@@ -4,6 +4,7 @@
 	$('#wait').hide();
 	$('#participants').hide();
 	$('#result').hide();
+	$('#nobody').hide();
 	$('#err_div').hide();
 // END SET.VIEW
 
@@ -13,10 +14,25 @@
 	var coms_participant = [];
 	var participants = [];
 	var number_of_draws = "1";
+	var no_winner = $("#winner").html();
 // END SET.VAR
 
-// END SET
+// SET.VAL.SAVE
+	$("#vote_field").val(localStorage.vote_min);
+	$("#coms_field").val(localStorage.coms_text);
+	if(localStorage.coms_box == "false")
+	$("#coms_box").prop('checked', false);
+	else
+	$("#coms_box").prop('checked', true);
+	if(localStorage.vote_box == "false")
+	$("#vote_box").prop('checked', false);
+	else
+	$("#vote_box").prop('checked', true);
+// END SET.VAL.SAVE
 
+// END SET
+console.log($("#link_form").serialize());
+console.log(localStorage);
 // FUNCTION
 
 function getAuthorPermlink(link_full)
@@ -49,31 +65,35 @@ function getAuthorPermlink(link_full)
 
 async function getInfoFull(author, permlink)
 {
-	console.log("getInfoFull");
 
-	await steem.api.getContent(author, permlink, function(err, result) 
+	await steem.api.getActiveVotes(author, permlink, function(err, result) 
 	{
+		console.log("getVoteValid");
 		//console.log(err, result);
-		if (result.active_votes != "" && err == null) 
-		{
-			sessionStorage.setItem("vote", JSON.stringify(result.active_votes));
 
-			vote_list = JSON.parse(sessionStorage.getItem("vote"));
-			console.log(vote_list);
-			vote_min = $('#vote_field')[0].value; // Minimum voting percentage
-			i = 0;
-			vote_valid = 0; // Votes valid
-			sessionStorage.setItem("vote_nb", vote_list.length);
-			if (vote_min !== null && vote_min !== "") { vote_min = vote_min*100; }
-			else { vote_min = 0; }
-			while (i < vote_list.length)
+		var vote_valid = 0; // Votes valid
+
+		if (err == null) 
+		{
+			sessionStorage.setItem("vote_nb", result.length);
+			localStorage.setItem("vote_min", $('#vote_field')[0].value);
+
+			if ($('#vote_field')[0].value !== "")
 			{
-			    if(vote_list[i].percent >= vote_min)
+				vote_min = $('#vote_field')[0].value*100;
+			}
+			else
+			{
+				var vote_min = 0;
+			}
+
+			for (var i = 0; i < sessionStorage.vote_nb; i++)
+			{
+			    if(result[i].percent >= vote_min)
 			    {
-			       	vote_participant.push(vote_list[i].voter);
+			       	vote_participant.push(result[i].voter);
 			    	vote_valid++;
 			    }
-			    i++;
 			}
 			sessionStorage.setItem("vote_valid", vote_valid);
 		}
@@ -81,26 +101,26 @@ async function getInfoFull(author, permlink)
 
 	await steem.api.getContentReplies(author, permlink, function(err, result)
 	{
+		console.log("getComsValid");
 		//console.log(err, result);
-		if(result != "" && err == null)
-		{
-			sessionStorage.setItem("coms", JSON.stringify(result));
 
-			coms_list = JSON.parse(sessionStorage.getItem("coms"));
-			console.log(coms_list);
-			coms_text = $('#coms_field')[0].value; // Comment's keyword
-			i = 0;
-			coms_valid = 0; // Commentarys valid
-			sessionStorage.setItem("coms_nb", coms_list.length);
-			while (i < sessionStorage.getItem("coms_nb"))
+		coms_valid = 0; // Comments valid
+
+		if(err == null)
+		{
+			sessionStorage.setItem("coms_nb", result.length);
+
+			coms_text = $('#coms_field')[0].value;
+			localStorage.setItem("coms_text", coms_text);
+
+			for (var i = 0; i < sessionStorage.coms_nb; i++)
 			{
 				var regex =  new RegExp(coms_text, "ig");
-				if(regex.test(coms_list[i].body) == true)
+				if(regex.test(result[i].body) == true)
 				{
-					coms_participant.push(coms_list[i].author);
+					coms_participant.push(result[i].author);
 				 	coms_valid++;
 				}
-			    i++;
 			}
 			sessionStorage.setItem("coms_valid", coms_valid);
 		}
@@ -127,6 +147,7 @@ function getRandomDraw()
 				}
 			}
 			num = randomNumber(participants.length);
+			sessionStorage.setItem("nb_valid", participants.length);
 			sessionStorage.setItem("winner", participants[num]);
 		}
 		else
@@ -161,13 +182,21 @@ function getResult()
 {
 	console.log("getResult");
 
-	sessionStorage.setItem("num_of_draws", number_of_draws++);
+	if(sessionStorage.winner == "undefined")
+	{ 
 
-	$("#winner").append("<h1><a href='https://busy.org/@"+sessionStorage.getItem("winner")+"' target='_blank'>/@"+sessionStorage.getItem("winner")+"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.getItem("num_of_draws")+"</b>");
+	}
+	else
+	{
+		sessionStorage.setItem("num_of_draws", number_of_draws++);
+		$("#winner").html("<h1><a href='https://busy.org/@"+sessionStorage.getItem("winner")+"' target='_blank'>/@"+sessionStorage.getItem("winner")+"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.getItem("num_of_draws")+"</b>");
+	}
+
 	$('.vote_nb').html(sessionStorage.getItem("vote_nb"));
 	$('.coms_nb').html(sessionStorage.getItem("coms_nb"));
 	$('.vote_nb_valid').html(sessionStorage.getItem("vote_valid"));
 	$('.coms_nb_valid').html(sessionStorage.getItem("coms_valid"));
+	$('.nb_valid').html(sessionStorage.nb_valid);
 
 	$("#wait").hide();
 
@@ -228,7 +257,7 @@ $('#link_form').submit(function(event)
 	// RESET
 
 	$("#tab").html("");
-	$("#winner").html("");
+	$("#winner").html(no_winner);
 
 	$('#participants').hide();
 	$('#result').hide();
@@ -239,12 +268,31 @@ $('#link_form').submit(function(event)
 
 	// END RESET
 
+	// SAVE SET
+	if($("#coms_box").is(":checked") == true)
+	{
+		localStorage.setItem("coms_box", true);
+	}
+	else
+	{
+		localStorage.setItem("coms_box", false);
+	}
+	if($("#vote_box").is(":checked") == true)
+	{
+		localStorage.setItem("vote_box", true);
+	}
+	else
+	{
+		localStorage.setItem("vote_box", false);
+	}
+	// END SAVE SET
+
 	var link_full = $('#link_field')[0].value;
 
 	if(getAuthorPermlink(link_full) == true)
 	{
 		getInfoFull(sessionStorage.getItem("author"), sessionStorage.getItem("permlink"));
-		setTimeout(getRandomDraw, 1200);
+		setTimeout(getRandomDraw, 1000);
 		sessionStorage.clear();
 	}
 	else
