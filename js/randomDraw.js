@@ -28,6 +28,10 @@
 	$("#vote_box").prop('checked', false);
 	else
 	$("#vote_box").prop('checked', true);
+	if(localStorage.nobots_box == "false")
+	$("#nobots_box").prop('checked', false);
+	else
+	$("#nobots_box").prop('checked', true);
 // END SET.VAL.SAVE
 
 // END SET
@@ -84,14 +88,45 @@ async function getInfoFull(author, permlink)
 			}
 			else
 			{
-				var vote_min = 0;
+				vote_min = 0;
 			}
-
-			for (var i = 0; i < sessionStorage.vote_nb; i++)
+			
+			var participants = [];
+			// DELETING BOTS
+			$.ajax({
+				url: "./list_of_bots/bots.json",
+				dataType: 'json',
+				async: false,
+				data: null,
+				success: function(data) 
+				{
+					for (var i = 0; i < sessionStorage.vote_nb; i++)
+					{
+						var flag = true;
+						for (var j = 0; j < data.bots.length; j++)
+						{
+							if (result[i].voter === data.bots[j])
+							{
+								flag = false;
+								break;
+							}
+						}
+						if (flag)
+						{
+							participants.push(result[i]);
+						}
+					}
+				}
+			});
+			// DELETING BOTS END
+			if (participants.length == 0) participants = result;
+			
+			
+			for (var i = 0; i < participants.length; i++)
 			{
-			    if(result[i].percent >= vote_min)
+			    if(participants[i].percent >= vote_min)
 			    {
-			       	vote_participant.push(result[i].voter);
+			       	vote_participant.push(participants[i].voter);
 			    	vote_valid++;
 			    }
 			}
@@ -113,12 +148,42 @@ async function getInfoFull(author, permlink)
 			coms_text = $('#coms_field')[0].value;
 			localStorage.setItem("coms_text", coms_text);
 
-			for (var i = 0; i < sessionStorage.coms_nb; i++)
+			var participants = [];
+			// DELETING BOTS
+			$.ajax({
+				url: "./list_of_bots/bots.json",
+				dataType: 'json',
+				async: false,
+				data: null,
+				success: function(data) 
+				{
+					for (var i = 0; i < sessionStorage.coms_nb; i++)
+					{
+						var flag = true;
+						for (var j = 0; j < data.bots.length; j++)
+						{
+							if (result[i].author === data.bots[j])
+							{
+								flag = false;
+								break;
+							}
+						}
+						if (flag)
+						{
+							participants.push(result[i]);
+						}
+					}
+				}
+			});
+			// DELETING BOTS END
+			if (participants.length == 0) participants = result;
+			
+			for (var i = 0; i < participants.length; i++)
 			{
 				var regex =  new RegExp(coms_text, "ig");
-				if(regex.test(result[i].body) == true)
+				if(regex.test(participants[i].body) == true)
 				{
-					coms_participant.push(result[i].author);
+					coms_participant.push(participants[i].author);
 				 	coms_valid++;
 				}
 			}
@@ -284,6 +349,14 @@ $('#link_form').submit(function(event)
 	else
 	{
 		localStorage.setItem("vote_box", false);
+	}
+	if($("#nobots_box").is(":checked") == true)
+	{
+		localStorage.setItem("nobots_box", true);
+	}
+	else
+	{
+		localStorage.setItem("nobots_box", false);
 	}
 	// END SAVE SET
 
