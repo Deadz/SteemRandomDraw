@@ -157,7 +157,7 @@ async function getInfoFull(author, permlink)
 								success: function(data) 
 								{
 									bots_list = data.bots;
-									if ($.inArray(result[i].voter, bots_list) >= 0)
+									if ($.inArray(result[i].author, bots_list) >= 0)
 									{
 										// Bot
 									}
