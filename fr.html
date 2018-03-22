@@ -9,105 +9,111 @@
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 	<title>Tirage au sort pour steem</title>
 </head>
-<body class="w3-content" style="max-width:1200px;">
-	<div class="w3-light-gray w3-padding-16 w3-center">
+<body>
+	<div class="w3-light-grey w3-padding-8 w3-center">
 		<h1>Steem Random Draw</h1>
 	</div>
-	<div class="w3-bar w3-dark-gray w3-margin-bottom">
-		<a href="https://deadz.github.io/SteemRandomDraw/" class="w3-bar-item w3-button">EN</a><a href="https://deadz.github.io/SteemRandomDraw/fr.html" class="w3-bar-item w3-button">FR</a><span class="w3-right w3-bar-item"> créé par <a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></span>
+	<div class="w3-bar w3-dark-grey w3-margin-bottom">
+		<a href="https://deadz.github.io/SteemRandomDraw/" class="w3-bar-item w3-button">EN</a><a href="/fr.html" class="w3-bar-item w3-button">FR</a><span class="w3-right w3-bar-item"> Créé par <a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></span>
 	</div>
 
-	<div id="err_div" class="w3-panel w3-red w3-display-container">
-  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-  		<h3 id="err_title">Erreur !</h3>
-  		<p id="err_body"></p>
-	</div>
+	<div class="w3-row-padding w3-content" style="max-width:1400px">
 
-	<div class="w3-half w3-padding-large">
-		<div class="w3-container w3-blue w3-center">
-			<h3>Tirage au sort !</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large">
-			<form class="w3-container" id="link_form" method="post">
-				<p>
-					<label class="w3-text-blue"><b>1 - Collez le lien de l'article : </b></label>
-					<input class="w3-input w3-border w3-round" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field">
-				</p>
-				<label class="w3-text-blue"><b><p>2 - Choisisez les options : </p></b></label>
-				<p class="w3-center">
-					<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
-					<label class="w3-text-blue"><b>Votes</b> </label>
-					<input class="w3-check" type="checkbox" id="coms_box">
-					<label class="w3-text-blue"><b>Commentaires</b></label>
-				</p>
-				<label class="w3-text-blue"><b>3 - Options : </b></label>
-				<p>
-					<label class="w3-text-blue"><b>Pourcentage de vote minimum pour être accepté : </b></label>
-					<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
-				</p>
-				<p>
-					<label class="w3-text-blue"><b>Commentaire de participation : </b></label>
-					<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder='(Optional)' id="coms_field" value="">
-				</p>
+		<div class="w3-half">
+			<div id="err_div" class="w3-panel w3-red w3-display-container">
+		  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+		  		<h3 id="err_title">Erreur !</h3>
+		  		<p id="err_body"></p>
+			</div>
+			<div class="w3-container w3-card w3-light-grey w3-padding-large">
+				<form class="w3-container" id="link_form" method="post">
+					<label class="w3-text-dark-grey"><b>1. Lien du concours : </b></label>
+					<input class="w3-input w3-border w3-round w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" value="https://busy.org/@deadzy/life-11-un-de-mes-meilleurs-investissements" autofocus>
 
-				<p id="wait" class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
-
-				<button class="w3-button w3-block w3-section w3-blue w3-ripple w3-padding" type="submit">Envoyer</button>
-			</form>
-		</div>
-	</div>
-	<div class="w3-half w3-padding-large w3-animate-opacity" id="result">
-
-		<div class="w3-container w3-blue w3-center">
-			<h3>Et le gagnant est ...</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large w3-center w3-margin-bottom">
-			<div class="w3-panel w3-yellow w3-topbar w3-bottombar w3-border-amber" id="winner"><h1>Personne n'a pu être selectionné.</h1>Problème dus au temps de réponse avec steem, ressayez</div>
+					<label class="w3-text-dark-grey"><b>2. Le tirage sera fait parmi : </b></label>
+					<div class="w3-center w3-section">
+						<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
+						<label class="w3-text-dark-grey" id="vote_tit"><i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b> </label>
+						<input class="w3-check" type="checkbox" id="coms_box">
+						<label class="w3-text-dark-grey" id="coms_tit"><i class="fa fa-comments" title="Commentary"></i> <b>Commentaires</b></label>
+					</div>
+					<label class="w3-text-dark-grey"><b>3. Options : </b></label>
+					<fieldset class="w3-section">
+						<p>
+							<label class="w3-text-dark-grey"><b id="vote_cond">Pourcentage d'UpVote minimum</b></label>
+							<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
+						</p>
+						<p>
+							<label class="w3-text-dark-grey"><b id="coms_cond">Mot-clef</b></label>
+							<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder="(Optional)" id="coms_field" value="">
+						</p>
+						<p>
+							<input class="w3-check" type="checkbox" id="dble_box">
+							<label class="w3-text-dark-grey"><b>Un participant peut gagner plusieurs fois</b></label>
+						</p>
+						<p>
+							<input class="w3-check" type="checkbox" id="bots_box">
+							<label class="w3-text-dark-grey"><b>Exclure les bots</b></label>
+						</p>
+					</fieldset>
+					<p id="wait" class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:40px"></i></p>
+					<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" type="submit" id="btn_form">Envoyer</button>
+				</form>
+			</div>
 		</div>
 
-		<div class="w3-container w3-blue w3-center">
-			<h3>Resultat</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large">
-			<table class="w3-table-all w3-centered">
-				<thead>
+		<div class="w3-half w3-animate-right" id="result">
+			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom">
+				<h3>Et le gagnant est ...</h3>
+				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-blue" id="winner"><h1>Temps de réponse trop long, réessayer :)</h1></div>
+				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
-						<th></th>
-						<th>Upvotes</th>
-						<th>Commentaires</th>
+						<th><i class="fa fa-chevron-up" title="UpVote"></i> UpVotes</th>
+						<th><i class="fa fa-comments" title="Commentary"></i> Commentaires</th>
 					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th >Totale</th>
-						<td class="vote_nb">-</td>
-						<td class="coms_nb">-</td>
+					<tr class="w3-white">
+						<td><b id="vote_nb"></b></td>
+						<td><b id="coms_nb"></b></td>
 					</tr>
-					<tr>
-						<th >Valide</th>
-						<td class="vote_nb_valid">-</td>
-						<td class="coms_nb_valid">-</td>
-					</tr>
-				</tbody>
-			</table>
+				</table>
+				<h4>Condition : <span id="cond"></span></h4>
+				<p id="cond_opt"></p>
+				<p><b id="part_nb"></b> participants éligibles pour le tirage.</p>
+				<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" id="btn_win_list">Voir la liste des gagnants</button>
+				<br />
+				<table class="w3-table-all w3-centered w3-hoverable">
+					<thead>	
+						<tr class="w3-light-grey">
+							<th>N°</th>
+		      				<th>Pseudo</th>
+		   				</tr>
+		   			</thead>
+		   			<tbody id="tab">
+	   				</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
 
-	<div class="w3-container w3-padding-large w3-animate-opacity" id="participants">	
-		<div class="w3-container w3-blue w3-center">
-			<h3>Liste des participants</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large">
-			<table class="w3-table-all w3-centered w3-hoverable">
-				<thead>	
-					<tr class="w3-light-grey">
-						<th>N°</th>
-	      				<th>Pseudo</th>
-	   				</tr>
-	   			</thead>
-	   			<tbody id="tab">
-   				<tbody>
-			</table>
+		<div class="w3-modal" id="win_view">
+			<div class="w3-modal-content w3-card">
+				<header class="w3-container w3-dark-grey w3-center"> 
+					<span onclick="document.getElementById('win_view').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2>Liste des gagnants</h2>
+				</header>
+
+				<div class="w3-container w3-padding-large">
+					<table class="w3-table-all w3-centered w3-hoverable">
+						<thead>	
+							<tr class="w3-light-grey">
+								<th>N°</th>
+			      				<th>Pseudo</th>
+			   				</tr>
+			   			</thead>
+			   			<tbody id="win_tab">
+		   				</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/randomDraw.js"></script>
