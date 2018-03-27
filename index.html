@@ -20,9 +20,9 @@
 	<div class="w3-row-padding w3-content" style="max-width:1400px">
 
 		<div class="w3-half">
-			<div id="err_div" class="w3-panel w3-red w3-display-container" flag="8ab59f1f">
+			<div id="err_div" class="w3-panel w3-red w3-display-container">
 		  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-		  		<h3 id="err_title">Error !</h3>
+		  		<h3 id="err_title" flag="8ab59f1f">Error !</h3>
 		  		<p id="err_body"></p>
 			</div>
 			<div class="w3-container w3-card w3-light-grey w3-padding-large">
@@ -31,19 +31,27 @@
 					<input class="w3-input w3-border w3-round w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" autofocus>
 
 					<label class="w3-text-dark-grey"><b>2. The draw will be done among : </b></label>
-					<div class="w3-center w3-section">
-						<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
-						<label class="w3-text-dark-grey" id="vote_tit"><i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b> </label>
-						<input class="w3-check" type="checkbox" id="coms_box">
-						<label class="w3-text-dark-grey" id="coms_tit"><i class="fa fa-comments" title="Commentary"></i> <b>Comments</b></label>
+					<div class="w3-section w3-center">
+							<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
+							<label class="w3-text-dark-grey" id="vote_tit"><i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b> </label>
+							<input class="w3-check" type="checkbox" id="coms_box">
+							<label class="w3-text-dark-grey" id="coms_tit"><i class="fa fa-comments" title="Commentary"></i> <b>Comments</b></label>
 					</div>
 					<label class="w3-text-dark-grey"><b>3. Options : </b></label>
 					<fieldset class="w3-section">
-						<p>
+						<p id="choi_view" class="w3-center w3-text-dark-grey">
+							<i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b>
+							<select id="choi_field" name="choi_field">
+								<option value="and" selected>AND</option>
+								<option value="or">OR</option>
+							</select>
+							<i class="fa fa-comments" title="Commentary"></i> <b>Comments</b>
+						</p>
+						<p id="vote_view">
 							<label class="w3-text-dark-grey"><b id="vote_cond">Minimum percentage of UpVote</b></label>
 							<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
 						</p>
-						<p>
+						<p id="coms_view">
 							<label class="w3-text-dark-grey"><b id="coms_cond">Keyword</b></label>
 							<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder="(Optional)" id="coms_field" value="">
 						</p>
@@ -56,16 +64,18 @@
 							<label class="w3-text-dark-grey"><b>Exclude bots</b></label>
 						</p>
 					</fieldset>
-					<p id="wait" class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:40px"></i></p>
 					<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" type="submit" id="btn_form">Submit</button>
 				</form>
 			</div>
 		</div>
 
+		<div class="w3-half w3-animate-right"  id="wait">
+			<p class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
+		</div>
 		<div class="w3-half w3-animate-right" id="result">
 			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom">
 				<h3>And the winner is...</h3>
-				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-blue" id="winner"><h1>Response time too long, try again :)</h1></div>
+				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1>Nobody is eligible</h1></div>
 				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
 						<th><i class="fa fa-chevron-up" title="UpVote"></i> UpVotes</th>
@@ -78,7 +88,7 @@
 				</table>
 				<h4>Requirement : <span id="cond"></span></h4>
 				<p id="cond_opt"></p>
-				<p><b id="part_nb"></b> eligible participants for the draw.</p>
+				<p><b class="w3-badge w3-indigo" id="part_nb"></b> eligible participants for the draw.</p>
 				<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" id="btn_win_list">View list of winners</button>
 				<br />
 				<table class="w3-table-all w3-centered w3-hoverable">
@@ -116,6 +126,9 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/randomDraw.js"></script>
+	<script>
+		var url = "js/randomDraw.js";
+		$.getScript(url);
+	</script>
 </body>
 </html> 

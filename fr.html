@@ -39,11 +39,19 @@
 					</div>
 					<label class="w3-text-dark-grey"><b>3. Options : </b></label>
 					<fieldset class="w3-section">
-						<p>
+						<p id="choi_view" class="w3-center w3-text-dark-grey">
+							<i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b>
+							<select id="choi_field" name="choi_field">
+								<option value="and" selected>ET</option>
+								<option value="or">OU</option>
+							</select>
+							<i class="fa fa-comments" title="Commentary"></i> <b>Comments</b>
+						</p>
+						<p id="vote_view">
 							<label class="w3-text-dark-grey"><b id="vote_cond">Pourcentage d'UpVote minimum</b></label>
 							<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
 						</p>
-						<p>
+						<p id="coms_view">
 							<label class="w3-text-dark-grey"><b id="coms_cond">Mot-clef</b></label>
 							<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder="(Optional)" id="coms_field" value="">
 						</p>
@@ -65,7 +73,7 @@
 		<div class="w3-half w3-animate-right" id="result">
 			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom">
 				<h3>Et le gagnant est ...</h3>
-				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-blue" id="winner"><h1>Temps de réponse trop long, réessayer :)</h1></div>
+				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1>Personne n'est éligible.</h1></div>
 				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
 						<th><i class="fa fa-chevron-up" title="UpVote"></i> UpVotes</th>
@@ -78,7 +86,7 @@
 				</table>
 				<h4>Condition : <span id="cond"></span></h4>
 				<p id="cond_opt"></p>
-				<p><b id="part_nb"></b> participants éligibles pour le tirage.</p>
+				<p><b class="w3-badge w3-indigo" id="part_nb"></b> participants éligibles pour le tirage.</p>
 				<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" id="btn_win_list">Voir la liste des gagnants</button>
 				<br />
 				<table class="w3-table-all w3-centered w3-hoverable">
@@ -116,6 +124,9 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/randomDraw.js"></script>
+	<script>
+		var url = "js/randomDraw.js";
+		$.getScript(url);
+	</script>
 </body>
 </html> 
