@@ -7,111 +7,128 @@
 	<link rel="icon" href="favicon.ico" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
-	<title>SteemRandomDraw</title>
+	<title>Random Draw for steem</title>
 </head>
-<body class="w3-content" style="max-width:1200px;">
-	<div class="w3-light-gray w3-padding-16 w3-center">
+<body>
+	<div class="w3-light-grey w3-padding-8 w3-center">
 		<h1>Steem Random Draw</h1>
 	</div>
-	<div class="w3-bar w3-dark-gray w3-margin-bottom">
-		<a href="https://deadz.github.io/SteemRandomDraw/" class="w3-bar-item w3-button">EN</a><a href="https://deadz.github.io/SteemRandomDraw/fr.html" class="w3-bar-item w3-button">FR</a><span class="w3-right w3-bar-item"> created by <a href="https://busy.org/@deadzy">@deadzy</a></span>
-	</div>
-	
-	<div id="err_div" class="w3-panel w3-red w3-display-container">
-  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
-  		<h3 id="err_title">Error !</h3>
-  		<p id="err_body"></p>
+	<div class="w3-bar w3-dark-grey w3-margin-bottom">
+		<a href="https://deadz.github.io/SteemRandomDraw/" class="w3-bar-item w3-button">EN</a><a href="https://deadz.github.io/SteemRandomDraw/fr.html" class="w3-bar-item w3-button">FR</a><span class="w3-right w3-bar-item"> Created by <a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></span>
 	</div>
 
-	<div class="w3-half w3-padding-large">
-		<div class="w3-container w3-blue w3-center">
-			<h3>Steem Random draw !</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large">
-			<form class="w3-container" id="link_form" method="post">
-				<p>
-					<label class="w3-text-blue"><b>1 - Put the link to your article : </b></label>
-					<input class="w3-input w3-border w3-round" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field">
-				</p>
-				<label class="w3-text-blue"><b><p>2 - Select the required options : </p></b></label>
-				<p class="w3-center">
-					<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
-					<label class="w3-text-blue"><b>Votes</b> </label>
-					<input class="w3-check" type="checkbox" id="coms_box">
-					<label class="w3-text-blue"><b>Comments</b></label>
-					<input class="w3-check" type="checkbox" id="nobots_box">
-					<label class="w3-text-blue"><b>No bots</b></label>
-				</p>
-				<label class="w3-text-blue"><b>3 - Options : </b></label>
-				<p>
-					<label class="w3-text-blue"><b>Minimum voting percentage to be eligible for the draw : </b></label>
-					<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
-				</p>
-				<p>
-					<label class="w3-text-blue"><b>Participation Commentary : </b></label>
-					<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder='(Optional)' id="coms_field" value="">
-				</p>
+	<div class="w3-row-padding w3-content" style="max-width:1400px">
 
-				<p id="wait" class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
+		<div class="w3-half">
+			<div id="err_div" class="w3-panel w3-red w3-display-container">
+		  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+		  		<h3 id="err_title" flag="8ab59f1f">Error !</h3>
+		  		<p id="err_body"></p>
+			</div>
+			<div class="w3-container w3-card w3-light-grey w3-padding-large">
+				<form class="w3-container" id="link_form" method="post">
+					<label class="w3-text-dark-grey"><b>1. Contest Link : </b></label>
+					<input class="w3-input w3-border w3-round w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" autofocus>
 
-				<button class="w3-button w3-block w3-section w3-blue w3-ripple w3-padding" type="submit">Submit</button>
-			</form>
+					<label class="w3-text-dark-grey"><b>2. The draw will be done among : </b></label>
+					<div class="w3-section w3-center">
+							<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
+							<label class="w3-text-dark-grey" id="vote_tit"><i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b> </label>
+							<input class="w3-check" type="checkbox" id="coms_box">
+							<label class="w3-text-dark-grey" id="coms_tit"><i class="fa fa-comments" title="Commentary"></i> <b>Comments</b></label>
+					</div>
+					<label class="w3-text-dark-grey"><b>3. Options : </b></label>
+					<fieldset class="w3-section">
+						<p id="choi_view" class="w3-center w3-text-dark-grey">
+							<i class="fa fa-chevron-up" title="UpVote"></i> <b>UpVotes</b>
+							<select id="choi_field" name="choi_field">
+								<option value="and" selected>AND</option>
+								<option value="or">OR</option>
+							</select>
+							<i class="fa fa-comments" title="Commentary"></i> <b>Comments</b>
+						</p>
+						<p id="vote_view">
+							<label class="w3-text-dark-grey"><b id="vote_cond">Minimum percentage of UpVote</b></label>
+							<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
+						</p>
+						<p id="coms_view">
+							<label class="w3-text-dark-grey"><b id="coms_cond">Keyword</b></label>
+							<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder="(Optional)" id="coms_field" value="">
+						</p>
+						<p>
+							<input class="w3-check" type="checkbox" id="dble_box">
+							<label class="w3-text-dark-grey"><b>A participant can win several times</b></label>
+						</p>
+						<p>
+							<input class="w3-check" type="checkbox" id="bots_box">
+							<label class="w3-text-dark-grey"><b>Exclude bots</b></label>
+						</p>
+					</fieldset>
+					<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" type="submit" id="btn_form">Submit</button>
+				</form>
+			</div>
 		</div>
-	</div>
-	<div class="w3-half w3-padding-large w3-animate-opacity" id="result">
 
-		<div class="w3-container w3-blue w3-center">
-			<h3>And the winner is ...</h3>
+		<div class="w3-half w3-animate-right"  id="wait">
+			<p class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
 		</div>
-		<div class="w3-container w3-card-4 w3-padding-large w3-center w3-margin-bottom">
-			<div class="w3-panel w3-yellow w3-topbar w3-bottombar w3-border-amber" id="winner"></div>
-		</div>
-
-		<div class="w3-container w3-blue w3-center">
-			<h3>Result</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large w3-responsive">
-			<table class="w3-table-all w3-centered">
-				<thead>
+		<div class="w3-half w3-animate-right" id="result">
+			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom">
+				<h3>And the winner is...</h3>
+				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1>Nobody is eligible</h1></div>
+				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
-						<th></th>
-						<th>Upvotes</th>
-						<th>Commentaires</th>
+						<th><i class="fa fa-chevron-up" title="UpVote"></i> UpVotes</th>
+						<th><i class="fa fa-comments" title="Commentary"></i> Comments</th>
 					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<th>All</th>
-						<td class="vote_nb">-</td>
-						<td class="coms_nb">-</td>
+					<tr class="w3-white">
+						<td><b id="vote_nb"></b></td>
+						<td><b id="coms_nb"></b></td>
 					</tr>
-					<tr>
-						<th >Valid</th>
-						<td class="vote_nb_valid">-</td>
-						<td class="coms_nb_valid">-</td>
-					</tr>
-				</tbody>
-			</table>
+				</table>
+				<h4>Requirement : <span id="cond"></span></h4>
+				<p id="cond_opt"></p>
+				<p><b class="w3-badge w3-indigo" id="part_nb"></b> eligible participants for the draw.</p>
+				<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" id="btn_win_list">View list of winners</button>
+				<br />
+				<table class="w3-table-all w3-centered w3-hoverable">
+					<thead>	
+						<tr class="w3-light-grey">
+							<th>N°</th>
+		      				<th>Pseudo</th>
+		   				</tr>
+		   			</thead>
+		   			<tbody id="tab">
+	   				</tbody>
+				</table>
+			</div>
 		</div>
-	</div>
 
-	<div class="w3-container w3-padding-large w3-animate-opacity" id="participants">	
-		<div class="w3-container w3-blue w3-center">
-			<h3>List of participants</h3>
-		</div>
-		<div class="w3-container w3-card-4 w3-padding-large">
-			<table class="w3-table-all w3-centered w3-hoverable">
-				<thead>	
-					<tr class="w3-light-grey">
-						<th>N°</th>
-	      				<th>Pseudo</th>
-	   				</tr>
-	   			</thead>
-	   			<tbody id="tab">
-   				<tbody>
-			</table>
+		<div class="w3-modal" id="win_view">
+			<div class="w3-modal-content w3-card">
+				<header class="w3-container w3-dark-grey w3-center"> 
+					<span onclick="document.getElementById('win_view').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2>List of winners</h2>
+				</header>
+
+				<div class="w3-container w3-padding-large">
+					<table class="w3-table-all w3-centered w3-hoverable">
+						<thead>	
+							<tr class="w3-light-grey">
+								<th>N°</th>
+			      				<th>Pseudo</th>
+			   				</tr>
+			   			</thead>
+			   			<tbody id="win_tab">
+		   				</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="js/randomDraw.js"></script>
+	<script>
+		var url = "js/randomDraw.js";
+		$.getScript(url);
+	</script>
 </body>
 </html> 
