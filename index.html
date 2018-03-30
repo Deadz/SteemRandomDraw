@@ -45,8 +45,8 @@
 						<p id="choi_view" class="w3-center w3-text-dark-grey">
 							<i class="fa fa-chevron-up" title="UpVote"></i> <b data-i18n="upvotes"></b>
 							<select id="choi_field" name="choi_field">
-								<option value="and" selected>AND</option>
-								<option value="or">OR</option>
+								<option data-i18n="and" value="and" selected>AND</option>
+								<option data-i18n="or" value="or">OR</option>
 							</select>
 							<i class="fa fa-comments" title="Commentary"></i> <b data-i18n="comments"></b>
 						</p>
@@ -81,8 +81,8 @@
 				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1 data-i18n="nobody"></h1></div>
 				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
-						<th><i class="fa fa-chevron-up" title="UpVote"></i><span data-i18n="tableupvotes"></span></th>
-						<th><i class="fa fa-comments" title="Commentary"></i><span data-i18n="tablecomments"></span></th>
+						<th><i class="fa fa-chevron-up" title="UpVote"></i><span data-i18n="upvotes"></span></th>
+						<th><i class="fa fa-comments" title="Commentary"></i><span data-i18n="comments"></span></th>
 					</tr>
 					<tr class="w3-white">
 						<td><b id="vote_nb"></b></td>
@@ -136,17 +136,17 @@
 		i18next
 			.use(window.i18nextXHRBackend)
 			.init({
-				lng: 'en',
-				backend: {
-					loadPath: './locales/{{lng}}/{{ns}}.json'
-				}
-				}, function(err, t) {
+						lng: 'en',
+						backend: { loadPath: './languages/{{lng}}.json' }
+				  }, function(err, t) {
 				jqueryI18next.init(i18next, $);
 				$(document).localize();
 			
-				$('.lang-select').click(function() {
-					i18next.changeLanguage(this.innerHTML, function() {
-					$(document).localize();
+				$('.lang-select').click(function() 
+				{
+					i18next.changeLanguage(this.innerHTML, function() 
+					{
+						$(document).localize();
 					});
 				});
 			});
