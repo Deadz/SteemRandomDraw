@@ -300,7 +300,6 @@ function getResult()
 
 function showErr(err)
 {
-		$('#err_title').html("Error");
 		$('#err_body').html(err);
 		$('#err_div').show();
 		$("#wait").hide();
