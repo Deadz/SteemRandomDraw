@@ -51,7 +51,20 @@ function getAuthorPermlink(link_full)
 	return new Promise((resolve, reject) => 
 	{
 		//console.log("getInfoLink");
+		
+		regex_v0 = new RegExp("https://golos.io");
 
+		if (regex_v0.test(link_full)) 
+		{
+			steem.api.setOptions({ url: 'wss://ws.golos.io' }); // assuming websocket is work at ws.golos.io
+			steem.config.set('address_prefix','GLS');
+			steem.config.set('chain_id','782a3039b478c839e4cb0c941ff4eaeb7df40bdd68bd441afd444b9da763de12');
+		}
+		else
+		{
+			steem.api.setOptions({ url: 'https://api.steemit.com' });
+		}
+		
 		regex_v1 = new RegExp("/@");
 		regex_v2 = new RegExp("/");
 
