@@ -307,8 +307,6 @@ function getResult()
 
 	$("#wait").hide();
 	$('#result').show();
-
-	sessionStorage.clear();
 }
 
 function showErr(err)
@@ -443,4 +441,13 @@ $('#link_form').submit(function(event)
 
 	start($('#link_field')[0].value);
 });
+
+$('#post').click(function()
+{
+	commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
+});
+
+window.onunload = function() {
+  sessionStorage.clear();
+};
 // END EVENT

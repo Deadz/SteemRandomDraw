@@ -4,9 +4,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+	<script src="https://steemit.github.io/example-steemconnect-angular/sc2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/10.6.0/i18next.min.js" ></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-xhr-backend/1.5.1/i18nextXHRBackend.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js" ></script>
+	<script src='./js/steemlogin.js'></script>
 	<link rel="icon" href="favicon.ico" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -108,6 +110,7 @@
 		   			<tbody id="tab">
 	   				</tbody>
 				</table>
+				<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" id="post" data-i18n="post"></button>
 			</div>
 		</div>
 
@@ -134,8 +137,8 @@
 		</div>
 	</div>
 	<script>
-		var url = "js/randomDraw.js";
-		$.getScript(url);
+		var url1 = "js/randomDraw.js";
+		$.getScript(url1);
 		
 		i18next
 			.use(window.i18nextXHRBackend)
