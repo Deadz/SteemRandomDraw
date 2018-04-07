@@ -248,6 +248,11 @@ function getResult()
 {
   	//console.log("getResult");
 
+  	if(sessionStorage.user === sessionStorage.author)
+  	{
+  		$('#post').show();
+  	}
+
 	if(sessionStorage.winner != "undefined")
 	{ 
 		win_list.push(sessionStorage.winner); // Winner list
@@ -447,7 +452,8 @@ $('#post').click(function()
 	commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
 });
 
-window.onunload = function() {
+window.onunload = function()
+{
   sessionStorage.clear();
 };
 // END EVENT
