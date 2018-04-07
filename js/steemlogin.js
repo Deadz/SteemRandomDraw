@@ -30,7 +30,7 @@ function logout()
   sc2.revokeToken(function (err, res)
   {
     console.log(err, res)
-    if (res.success == "true")
+    if(res.success)
     {
       $('#login').show();
       $('#logout').hide();
@@ -47,7 +47,7 @@ function commentWinnerList(author, authorPermlink, winners)
     var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     console.log(winners);
     list_winners = winners.join(", @");
-    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><img src='https://deadz.github.io/SteemRandomDraw/images/random.png' height='150px'/></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
+    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/random.png'/></center></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
     console.log(message);
     sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
     {
@@ -55,7 +55,7 @@ function commentWinnerList(author, authorPermlink, winners)
       if(!err && result)
       {
         $('#post').hide();
-        $('#post').before("<br /><b><a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b>");
+        $('#post').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
       }
     });
   }
@@ -97,6 +97,8 @@ $(document).ready(function()
   $('#logout').click(function()
   {
     console.log("Logout");
+    $('#login').show();
+    $('#logout').hide();
     logout();
   });
 
