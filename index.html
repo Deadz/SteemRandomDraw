@@ -166,7 +166,7 @@
 				{
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
-						localStorage.setItem("lng", this.innerHTML)
+						localStorage.setItem("lng", $('.lang-select').text())
 						$(document).localize();
 					});
 				});
