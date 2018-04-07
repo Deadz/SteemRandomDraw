@@ -66,6 +66,7 @@ function getUser()
     //console.log(err, res)
     if (!err)
     {
+      $('#user').html(res.user);
       console.log(res.user);
     }  
   });
@@ -73,9 +74,6 @@ function getUser()
 
 $(document).ready(function()
 {
-
-  $('#user').html(getUser());
-
   $('#login').click(function()
   {
     console.log("Login");
