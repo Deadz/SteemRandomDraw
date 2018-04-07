@@ -164,9 +164,10 @@
 			
 				$('.lang-select').click(function() 
 				{
+					console.log($(this));
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
-						localStorage.setItem("lng", $(this).text());
+						//localStorage.setItem("lng", $(this).text());
 						$(document).localize();
 					});
 				});
