@@ -1,10 +1,3 @@
-function init()
-{
-  $('#login').click(login());
-  $('#logout').click(logout());
-}
-window.onload = init;
-
 function getQueryVariable(variable)
 {
   var query = window.location.search.substring(1);
@@ -68,3 +61,7 @@ function getUser()
       return res.user;
   });
 }
+
+$('#login').click(login());
+
+$('#logout').click(logout());
