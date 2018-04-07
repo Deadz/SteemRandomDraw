@@ -45,7 +45,7 @@ function commentWinnerList(author, authorPermlink, winners)
 
   console.log("commentWinnerList");
 
-  if (sessionStorage.user == author)
+  if(sessionStorage.user == author)
   {
     var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(permlink);
