@@ -44,15 +44,15 @@ function commentWinnerList(author, authorPermlink, winners)
 {
   if(sessionStorage.user == author)
   {
-    //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
+    var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     console.log(winners);
     list_winners = winners.join(", @");
-    var message = $('#sc2').text()+"<b>@"+list_winners+"</b><br /><a href='https://deadz.github.io/SteemRandomDraw/'><img src='https://deadz.github.io/SteemRandomDraw/images/random.png' height='150px'/></a>";
+    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><img src='https://deadz.github.io/SteemRandomDraw/images/random.png' height='150px'/></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
     console.log(message);
-    // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
-    // {
-    //   console.log(err, result);
-    // });
+    sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
+    {
+      console.log(err, result);
+    });
   }
 }
 
