@@ -62,11 +62,6 @@ function getUser()
   });
 }
 
-$('#login').click(function()
-{
-  login();
-});
-$('#logout').click(function()
-{
-  logout();
-});
+$('#login').click(login);
+
+$('#logout').click(logout);
