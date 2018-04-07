@@ -149,10 +149,13 @@
 		var url1 = "js/randomDraw.js";
 		$.getScript(url1);
 
+		if(localStorage.lng != "") lang = localStorage.lng;
+		else lang = 'EN';
+
 		i18next
 			.use(window.i18nextXHRBackend)
 			.init({
-						lng: 'EN',
+						lng: lang,
 						backend: { loadPath: './languages/{{lng}}.json' }
 				  }, function(err, t) {
 				jqueryI18next.init(i18next, $);
@@ -164,15 +167,13 @@
 					var2 = var1.split(RegExp('</b>'))[0];
 					console.log(var2);
 					localStorage.setItem("lng", var2);
-					if(localStorage.lng != "") lang = localStorage.lng;
-					else lang = this.innerHTML;
-					console.log(lang);
-					i18next.changeLanguage(lang, function() 
+					
+					i18next.changeLanguage(lang, function()
 					{
 						console.log(lang);
 						$(document).localize();
 					});
-			});
+				});
 			});
 	</script>
 </body>
