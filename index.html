@@ -164,7 +164,7 @@
 			
 				$('.lang-select').click(function() 
 				{
-					console.log($(this));
+					console.log(this.innerHTML);
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
 						//localStorage.setItem("lng", $(this).text());
