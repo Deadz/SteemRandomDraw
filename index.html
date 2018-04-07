@@ -163,7 +163,7 @@
 			
 				$('.lang-select').click(function() 
 				{
-					if($(this).html().test(RegExp('<b class="lang-select">')))
+					if(RegExp('<b class="lang-select">').test($(this).html()))
 					{
 						var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
 						var2 = var1.split(RegExp('</b>'))[0];
