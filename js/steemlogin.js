@@ -24,7 +24,6 @@ sc2.init({
 //authentication
 function login()
 {
-  console.log("Login");
   var link = sc2.getLoginURL();
   if (window.location.search == "")
     window.location.replace(link);
@@ -32,7 +31,6 @@ function login()
 
 function logout()
 {
-  console.log("Logout");
   sc2.revokeToken(function (err, res)
   {
     console.log(err, res)
@@ -90,12 +88,14 @@ $(document).ready(function()
 
   $('#login').click(function()
   {
+    console.log("Login");
     login();
     console.log(getUser());
   });
 
   $('#logout').click(function()
   {
+    console.log("Logout");
     logout();
   });
 });
