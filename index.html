@@ -149,10 +149,14 @@
 		var url1 = "js/randomDraw.js";
 		$.getScript(url1);
 		
+		if(localStorage.lng != "")
+			lang = localStorage.lng;
+		else
+			lang = 'EN';
 		i18next
 			.use(window.i18nextXHRBackend)
 			.init({
-						lng: 'EN',
+						lng: lang,
 						backend: { loadPath: './languages/{{lng}}.json' }
 				  }, function(err, t) {
 				jqueryI18next.init(i18next, $);
@@ -162,6 +166,7 @@
 				{
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
+						localStorage.setItem("lng", this.innerHTML)
 						$(document).localize();
 					});
 				});
