@@ -95,4 +95,10 @@ $(document).ready(function()
     console.log("Logout");
     logout();
   });
+
+  $('#post').click(function()
+  {
+    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
+  });
+  
 });
