@@ -248,7 +248,7 @@ function getResult()
 {
   	//console.log("getResult");
 
-  	if(sessionStorage.user == sessionStorage.author)
+  	if(sessionStorage.user === sessionStorage.author)
   	{
   		$('#post').show();
   	}
