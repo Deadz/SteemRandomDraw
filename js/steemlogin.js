@@ -44,14 +44,14 @@ function commentWinnerList(author, authorPermlink, winners)
 {
 
   console.log("commentWinnerList");
-
-  if (sessionStorage.user == author)
+  console.log(sessionStorage.user);
+  if(sessionStorage.user == author)
   {
     var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(permlink);
     console.log(winners);
     var message = "test";
-    sc2.comment('', '', author, authorPermlink, '', message, '', function(err, result)
+    sc2.comment(author, authorPermlink, author, 'winners-steem-random-draw', '', message, '', function(err, result)
     {
       console.log(err, result);
     });
@@ -69,6 +69,7 @@ function getUser()
       sessionStorage.setItem("user", res.user);
       $('#login').hide();
       $('#logout').show();
+      $('#post').hide();
       console.log(res.user);
     }
     else
