@@ -66,9 +66,7 @@ function getUser()
       if (!err)
       {
         resolve(res.user);
-      }
-      else
-        reject(false);
+      }  
     });
   })
 }
