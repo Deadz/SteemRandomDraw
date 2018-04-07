@@ -19,10 +19,11 @@
 	"requirement" : "Conditions : ",
 	"participants" : " participants éligibles pour le tirage.",
 	"viewwinnerslist" : "Voir la liste des gagnants",
-	"post": "Post",
+	"post": "Poster le résultat en commentaire.",
 	"winnerslist" : "Liste des gagnants",
 	"and" : "et",
 	"or" : "ou",
 	"dev" : "Développé par ",
-	"design" : "Graphisme par "
+	"design" : "Graphisme par ",
+	"sc2" : "Voici le résultat du tirage au sort, félicitation à <b>@<span id='sc2list'></span></b><br />Ce commentaire a été généré par <a href='https://deadz.github.io/SteemRandomDraw/'><b>SteemRandomDraw</b></a>"
 }

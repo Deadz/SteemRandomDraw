@@ -50,8 +50,8 @@ function commentWinnerList(author, authorPermlink, winners)
     //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(winners);
     list_winners = winners.join(", @");
-    var message = "Voici le résultat du tirage au sort, félicitation à <b>@"+list_winners+"</b> le commentaire a été généré par <a href='https://deadz.github.io/SteemRandomDraw/'>SteemRandomDraw</a>";
-    console.log(message);
+    $('#sc2list').html(list_winners);
+    var message = $('#sc2').html();
     // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
     // {
     //   console.log(err, result);
