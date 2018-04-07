@@ -30,7 +30,7 @@ function logout()
   sc2.revokeToken(function (err, res)
   {
     console.log(err, res)
-    if (res.succes === true)
+    if (res.succes == true)
     {
       $('#login').show();
       $('#logout').hide();
@@ -63,6 +63,7 @@ function getUser()
     if (!err && res != null)
     {
       $('#user').html(res.user);
+      sessionStorage.setItem("user", res.user);
       $('#login').hide();
       $('#logout').show();
       console.log(res.user);
