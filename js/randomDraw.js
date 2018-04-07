@@ -122,8 +122,9 @@ function getInfoVote()
 				    	if(!$("#dble_box").is(":checked")  && $.inArray(result[i].voter, win_list) >= 0) {} // Already win 
 				    	else
 				    	{
-				    		if($("#bots_box").is(":checked") && $.inArray(result[i].voter, bots_list) >= 0) // Bot
-				    		else vote_participant.push(result[i].voter); // Add list
+				    		if($("#bots_box").is(":checked") && $.inArray(result[i].voter, bots_list) >= 0) {} // Bot
+				    		else
+				    			vote_participant.push(result[i].voter); // Add list
 				    	}
 				    }
 				}
@@ -158,7 +159,7 @@ function getInfoComs()
 						if(!$("#dble_box").is(":checked")  && $.inArray(result[i].author, win_list) >= 0) {} // Already win
 				    	else
 				    	{
-				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) { console.log(result[i].voter);}  // Bot
+				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) {} // Bot
 				    		else 
 				    			coms_participant.push(result[i].author); // Add list
 						}
