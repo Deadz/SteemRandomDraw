@@ -158,9 +158,9 @@ function getInfoComs()
 						if(!$("#dble_box").is(":checked")  && $.inArray(result[i].author, win_list) >= 0) {} // Already win
 				    	else
 				    	{
-				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) {} // Bot
-
-				    		else coms_participant.push(result[i].author); // Add list
+				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) { console.log(result[i].voter);}  // Bot
+				    		else 
+				    			coms_participant.push(result[i].author); // Add list
 						}
 					}
 				}
