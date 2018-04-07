@@ -166,16 +166,13 @@
 					localStorage.setItem("lng", var2);
 					if(localStorage.lng != "") lang = localStorage.lng;
 					else lang = this.innerHTML;
-
-					i = 2;
-					for (i >= 1; i--)
+					console.log(lang);
+					i18next.changeLanguage(lang, function() 
 					{
-						i18next.changeLanguage(lang, function() 
-						{
-							$(document).localize();
-						});
-					}
-				});
+						console.log(lang);
+						$(document).localize();
+					});
+			});
 			});
 	</script>
 </body>
