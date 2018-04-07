@@ -58,20 +58,17 @@ function commentWinnerList(author, authorPermlink, winners)
 
 function getUser()
 {
-  return new Promise((resolve, reject) => 
+  sc2.me(function (err, res) 
   {
-    sc2.me(function (err, res) 
+    //console.log(err, res)
+    if (!err)
     {
-      //console.log(err, res)
-      if (!err)
-      {
-        resolve(res.user);
-      }  
-    });
-  })
+      console.log(res.user);
+    }  
+  });
 }
 
-$(document).ready(async function()
+$(document).ready(function()
 {
   // use = await getUser();
   // if(use != false)
