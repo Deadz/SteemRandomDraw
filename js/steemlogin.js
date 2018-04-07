@@ -1,6 +1,3 @@
-$('#logout').hide();
-$('#post').hide();
-
 function getQueryVariable(variable)
 {
   var query = window.location.search.substring(1);
@@ -74,6 +71,9 @@ function getUser()
 
 $(document).ready(function()
 {
+  $('#logout').hide();
+  $('#post').hide();
+
   $('#login').click(function()
   {
     console.log("Login");
