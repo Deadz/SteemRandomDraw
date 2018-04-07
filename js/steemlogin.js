@@ -47,14 +47,15 @@ function commentWinnerList(author, authorPermlink, winners)
   console.log(sessionStorage.user);
   if(sessionStorage.user == author)
   {
-    var permlink = steem.formatter.commentPermlink(author, authorPermlink);
-    console.log(permlink);
+    //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(winners);
-    var message = "test";
-    sc2.comment(author, authorPermlink, author, 'winners-steem-random-draw', '', message, '', function(err, result)
-    {
-      console.log(err, result);
-    });
+    list_winners = winners.join(", @");
+    var message = "Voici le résultat du tirage au sort, félicitation à <b>@"+list_winners+"</b> le commentaire a été généré par <a href='https://deadz.github.io/SteemRandomDraw/'>SteemRandomDraw</a>";
+    console.log(message);
+    // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
+    // {
+    //   console.log(err, result);
+    // });
   }
 }
 
