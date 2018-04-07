@@ -55,7 +55,7 @@ function commentWinnerList(author, authorPermlink, winners)
       if(!err && result)
       {
         $('#post').hide();
-        $('#post').before("<a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a>");
+        $('#post').before("<br /><b><a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b>");
       }
     });
   }
