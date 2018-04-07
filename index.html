@@ -20,9 +20,9 @@
 	</div>
 	
 	<div class="w3-bar w3-dark-grey w3-margin-bottom">
-		<a class="w3-bar-item w3-button"><b class="lang-select">EN</b></a>
-		<a class="w3-bar-item w3-button"><b class="lang-select">FR</b></a>
-		<a class="w3-bar-item w3-button"><b class="lang-select">RU</b></a>
+		<a class="lang-select w3-bar-item w3-button">EN</a>
+		<a class="lang-select w3-bar-item w3-button">FR</a>
+		<a class="lang-select w3-bar-item w3-button">RU</a>
 		<a class="w3-bar-item w3-button w3-right" id="login"><span data-i18n="login"></span></a>
 		<a class="w3-bar-item w3-button w3-right" id="logout"><span id="user"></span> <i class='fa fa-power-off'></i></a>
 	</div>
@@ -166,7 +166,7 @@
 				{
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
-						localStorage.setItem("lng", $('.lang-select').text())
+						localStorage.setItem("lng", this.text())
 						$(document).localize();
 					});
 				});
