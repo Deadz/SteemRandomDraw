@@ -105,7 +105,6 @@ $(document).ready(function()
   $('#post').on("click", function()
   {
     console.log("commentWinnerList");
-    $('#post').prop(disabled, true);
     commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
   });
 
