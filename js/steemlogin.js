@@ -44,6 +44,6 @@ function whoiam()
   sc2.me(function (err, res) 
   {
     console.log(err, res)
-    console.log(res.user_metadata._id);
+    console.log(res.user_metadata[_id]);
   });
 }
