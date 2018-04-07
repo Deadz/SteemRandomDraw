@@ -163,14 +163,17 @@
 			
 				$('.lang-select').click(function() 
 				{
-					var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
-					var2 = var1.split(RegExp('</b>'))[0];
-					console.log(var2);
-					localStorage.setItem("lng", var2);
+					if($(this).html().test(RegExp('<b class="lang-select">')))
+					{
+						var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
+						var2 = var1.split(RegExp('</b>'))[0];
+						console.log("Var2 "+var2);
+						localStorage.setItem("lng", var2);
+					}	
 					
 					i18next.changeLanguage(lang, function()
 					{
-						console.log(lang);
+						console.log("Lang "+lang);
 						$(document).localize();
 					});
 				});
