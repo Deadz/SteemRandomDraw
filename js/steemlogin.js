@@ -66,17 +66,26 @@ function getUser()
 
 $(document).ready(function()
 {
-  if(getUser() != false)
+  if(getUser() != (false || null))
   {
-    console.log("Co");
+    console.log("Log user : "+getUser());
     $('#login').hide();
+    $('#logout').show();
+  }
+  else
+  {
+    if (getUser() == null)
+    {
+      $('#login').show();
+      $('#logout').hide();
+    }
   }
 
   $('#login').click(function()
   {
     login();
   });
-  $('#login').click(login);
+ // $('#login').click(login);
 
   $('#logout').click(function()
   {
