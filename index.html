@@ -148,15 +148,11 @@
 	<script>
 		var url1 = "js/randomDraw.js";
 		$.getScript(url1);
-		
-		if(localStorage.lng != "")
-			lang = localStorage.lng;
-		else
-			lang = 'EN';
+
 		i18next
 			.use(window.i18nextXHRBackend)
 			.init({
-						lng: lang,
+						lng: 'EN',
 						backend: { loadPath: './languages/{{lng}}.json' }
 				  }, function(err, t) {
 				jqueryI18next.init(i18next, $);
@@ -167,7 +163,11 @@
 					var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
 					var2 = var1.split(RegExp('</b>'))[0];
 					console.log(var2);
-					i18next.changeLanguage(this.innerHTML, function() 
+					if(localStorage.lng != "")
+						lang = localStorage.lng;
+					else
+						lang = this.innerHTML;
+					i18next.changeLanguage(lang, function() 
 					{
 						localStorage.setItem("lng", var2);
 						$(document).localize();
