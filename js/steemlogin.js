@@ -17,9 +17,12 @@ sc2.init({
 })
 
 //authentication
-var link = sc2.getLoginURL();
-if (window.location.search == "")
-	window.location.replace(link);
+function login()
+{
+  var link = sc2.getLoginURL();
+  if (window.location.search == "")
+    window.location.replace(link);
+}
 //
 
 sc2.setAccessToken(getQueryVariable('access_token'));
@@ -30,7 +33,8 @@ function commentWinnerList(author, authorPermlink, winners)
 	console.log(permlink);
 	console.log(winners);
 	var message = "test";
-    sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result) {
+    sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
+    {
       console.log(err, result);
     });
 }

@@ -1,4 +1,5 @@
 {
+	"login" : "Login",
 	"pagename": "Случайный выбор для steem",
 	"title": "Steem Random Draw",
 	"creatorstring": " Сделано ",
@@ -21,5 +22,7 @@
 	"post": "Опубликовать",
 	"winnerslist": "Список победителей",
 	"and" : "и",
-	"or" : "или"
+	"or" : "или",
+	"dev" : "Разработано ",
+	"design" : "Графика "
 }
