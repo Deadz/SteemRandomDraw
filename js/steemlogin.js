@@ -52,6 +52,11 @@ function commentWinnerList(author, authorPermlink, winners)
     sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
     {
       console.log(err, result);
+      if(!err && result)
+      {
+        $('#post').hide();
+        $('#post').before("<a href='"+($('#link_field')[0].value+"#@"+author+"/"+permlink+"'>"+($('#link_field')[0].value+"#@"+author+"/"+permlink+"</a>");
+      }
     });
   }
 }
@@ -95,7 +100,7 @@ $(document).ready(function()
     logout();
   });
 
-  $('#post').click(function()
+  $('#post').on("click", function()
   {
     console.log("commentWinnerList");
     commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
