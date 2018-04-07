@@ -64,11 +64,12 @@ function getUser()
     {
       //console.log(err, res)
       if (!err)
-        return res.user;
+      {
+        resolve(res.user);
+      }
       else
-        return false;
+        reject(false);
     });
-    resolve();
   })
 }
 
