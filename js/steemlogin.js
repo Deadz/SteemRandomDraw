@@ -58,19 +58,23 @@ function commentWinnerList(author, authorPermlink, winners)
 
 function getUser()
 {
-  sc2.me(function (err, res) 
+  return new Promise((resolve, reject) => 
   {
-    console.log(err, res)
-    if (!err)
-      return res.user;
-    else
-      return false;
-  });
+    sc2.me(function (err, res) 
+    {
+      console.log(err, res)
+      if (!err)
+        return res.user;
+      else
+        return false;
+    });
+    resolve();
+  })
 }
 
-$(document).ready(function()
+$(document).ready(async function()
 {
-  if(getUser() != false)
+  if(await getUser() != false)
   {
     console.log("Log user : "+getUser());
     $('#login').hide();
