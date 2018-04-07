@@ -94,7 +94,7 @@ $(document).ready(async function()
   $('#login').click(function()
   {
     login();
-    console.log(await getUser());
+    console.log(getUser());
   });
 
   $('#logout').click(function()
