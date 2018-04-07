@@ -169,6 +169,7 @@
 						var2 = var1.split(RegExp('</b>'))[0];
 						console.log("Var2 "+var2);
 						localStorage.setItem("lng", var2);
+						lang = var2;
 					}	
 					
 					i18next.changeLanguage(lang, function()
