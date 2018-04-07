@@ -1,5 +1,4 @@
 $('#logout').hide();
-$('#login').hide();
 $('#post').hide();
 
 function getQueryVariable(variable)
@@ -64,7 +63,7 @@ function getUser()
   sc2.me(function (err, res) 
   {
     //console.log(err, res)
-    if (!err)
+    if (!err && res != null)
     {
       $('#user').html(res.user);
       $('#login').hide();
