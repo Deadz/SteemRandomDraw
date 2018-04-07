@@ -73,23 +73,23 @@ function getUser()
 
 $(document).ready(async function()
 {
-  use = await getUser();
-  if(use != false)
-  {
-    console.log(getUser());
-    $('#login').hide();
-    $('#user').html(use);
-    $('#logout').show();
-    $('#post').show();
-  }
-  else
-  {
-    if(use == null)
-    {
-      $('#login').show();
-      $('#logout').hide();
-    }
-  }
+  // use = await getUser();
+  // if(use != false)
+  // {
+  //   console.log(getUser());
+  //   $('#login').hide();
+  //   $('#user').html(use);
+  //   $('#logout').show();
+  //   $('#post').show();
+  // }
+  // else
+  // {
+  //   if(use == null)
+  //   {
+  //     $('#login').show();
+  //     $('#logout').hide();
+  //   }
+  // }
 
   $('#login').click(function()
   {
