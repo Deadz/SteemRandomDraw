@@ -164,7 +164,9 @@
 			
 				$('.lang-select').click(function() 
 				{
-					console.log($(this).html().split(RegExp('<b class="lang-select">')));
+					var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
+					var2 = var1.split(RegExp('</b>'))[0];
+					console.log(var2);
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
 						//localStorage.setItem("lng", $(this).text());
