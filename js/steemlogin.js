@@ -47,8 +47,8 @@ function commentWinnerList(author, authorPermlink, winners)
     //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(winners);
     list_winners = winners.join(", @");
-    $('#sc2list').html(list_winners);
-    var message = $('#sc2').html();
+    $('#sc2list').text(list_winners);
+    var message = $('#sc2').text();
     console.log(message);
     // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
     // {
