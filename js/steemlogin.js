@@ -30,7 +30,7 @@ function logout()
   sc2.revokeToken(function (err, res)
   {
     console.log(err, res)
-    if (res.succes == true)
+    if (res.success === true)
     {
       $('#login').show();
       $('#logout').hide();
