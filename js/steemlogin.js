@@ -42,9 +42,6 @@ sc2.setAccessToken(getQueryVariable('access_token'));
 
 function commentWinnerList(author, authorPermlink, winners)
 {
-
-  console.log("commentWinnerList");
-  console.log(sessionStorage.user);
   if(sessionStorage.user == author)
   {
     //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
@@ -52,6 +49,7 @@ function commentWinnerList(author, authorPermlink, winners)
     list_winners = winners.join(", @");
     $('#sc2list').html(list_winners);
     var message = $('#sc2').html();
+    console.log(message);
     // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
     // {
     //   console.log(err, result);
