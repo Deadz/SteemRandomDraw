@@ -74,16 +74,18 @@ function getUser()
 
 $(document).ready(async function()
 {
-  if(await getUser() != false)
+  use = await getUser();
+  if(use != false)
   {
     console.log(getUser());
     $('#login').hide();
+    $('#user').html(use);
     $('#logout').show();
     $('#post').show();
   }
   else
   {
-    if (getUser() == null)
+    if(use == null)
     {
       $('#login').show();
       $('#logout').hide();
