@@ -38,7 +38,7 @@
 			<div class="w3-container w3-card w3-light-grey w3-padding-large">
 				<form class="w3-container" id="link_form" method="post">
 
-					<span id="sc2" data-i18n="sc2"></span>
+					<span id="sc2" data-i18n="sc2" style="visibility: hidden;"></span>
 
 					<label class="w3-text-dark-grey"><b data-i18n="link"></b></label>
 					<input class="w3-input w3-border w3-round w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" autofocus>
@@ -167,14 +167,12 @@
 					{
 						var1 = $(this).html().split(RegExp('<b class="lang-select">'))[1];
 						var2 = var1.split(RegExp('</b>'))[0];
-						console.log("Var2 "+var2);
 						localStorage.setItem("lng", var2);
 						lang = var2;
 					}	
 					
 					i18next.changeLanguage(lang, function()
 					{
-						console.log("Lang "+lang);
 						$(document).localize();
 					});
 				});
