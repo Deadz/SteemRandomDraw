@@ -67,6 +67,7 @@ function getUser()
     if (!err)
     {
       $('#user').html(res.user);
+      $('#login').hide();
       console.log(res.user);
     }  
   });
