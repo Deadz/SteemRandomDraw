@@ -23,7 +23,14 @@ function login()
   if (window.location.search == "")
     window.location.replace(link);
 }
-//
+
+function logout()
+{
+  sc2.revokeToken(function (err, res)
+  {
+    console.log(err, res)
+  });
+}
 
 sc2.setAccessToken(getQueryVariable('access_token'));
 
