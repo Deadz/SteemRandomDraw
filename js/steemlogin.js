@@ -64,18 +64,21 @@ function getUser()
     {
       $('#user').html(res.user);
       $('#login').hide();
+      $('#logout').show();
       console.log(res.user);
-    }  
+    }
+    else
+    {
+      $('#logout').hide();
+      $('#post').hide();
+    } 
   });
 }
 
+getUser();
+
 $(document).ready(function()
 {
-  $('#logout').hide();
-  $('#post').hide();
-
-  getUser();
-
   $('#login').click(function()
   {
     console.log("Login");
