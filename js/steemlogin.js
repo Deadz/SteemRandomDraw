@@ -33,7 +33,7 @@ function commentWinnerList(author, authorPermlink, winners)
 	console.log(permlink);
 	console.log(winners);
 	var message = "test";
-    sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
+    sc2.comment('', '', author, authorPermlink, '', message, '', function(err, result)
     {
       console.log(err, result);
     });
@@ -44,6 +44,6 @@ function whoiam()
   sc2.me(function (err, res) 
   {
     console.log(err, res)
-    console.log(user);
+    console.log(res.user);
   });
 }
