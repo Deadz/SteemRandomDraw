@@ -34,6 +34,11 @@ function logout()
   sc2.revokeToken(function (err, res)
   {
     console.log(err, res)
+    if (res.succes === true)
+    {
+      $('#login').show();
+      $('#logout').hide();
+    }
   });
 }
 
@@ -68,23 +73,8 @@ function getUser()
 
 $(document).ready(function()
 {
-  // use = await getUser();
-  // if(use != false)
-  // {
-  //   console.log(getUser());
-  //   $('#login').hide();
-  //   $('#user').html(use);
-  //   $('#logout').show();
-  //   $('#post').show();
-  // }
-  // else
-  // {
-  //   if(use == null)
-  //   {
-  //     $('#login').show();
-  //     $('#logout').hide();
-  //   }
-  // }
+
+  $('#user').html(getUser());
 
   $('#login').click(function()
   {
