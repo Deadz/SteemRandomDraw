@@ -62,7 +62,7 @@ function getUser()
   {
     sc2.me(function (err, res) 
     {
-      console.log(err, res)
+      //console.log(err, res)
       if (!err)
         return res.user;
       else
@@ -76,7 +76,7 @@ $(document).ready(async function()
 {
   if(await getUser() != false)
   {
-    console.log("Log user : "+getUser());
+    console.log(getUser());
     $('#login').hide();
     $('#logout').show();
     $('#post').show();
@@ -94,7 +94,6 @@ $(document).ready(async function()
   {
     login();
   });
- // $('#login').click(login);
 
   $('#logout').click(function()
   {
