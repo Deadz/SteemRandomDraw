@@ -42,6 +42,9 @@ sc2.setAccessToken(getQueryVariable('access_token'));
 
 function commentWinnerList(author, authorPermlink, winners)
 {
+
+  console.log('commentWinnerList');
+
   if (getUser() == author)
   {
     var permlink = steem.formatter.commentPermlink(author, authorPermlink);
