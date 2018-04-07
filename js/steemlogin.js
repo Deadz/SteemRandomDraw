@@ -35,7 +35,7 @@ function logout()
   console.log("Logout");
   sc2.revokeToken(function (err, res)
   {
-    console.log(err, "logout "+res)
+    console.log(err, res)
   });
 }
 
@@ -94,6 +94,7 @@ $(document).ready(async function()
   $('#login').click(function()
   {
     login();
+    console.log(await getUser());
   });
 
   $('#logout').click(function()
