@@ -1,3 +1,7 @@
+$('#logout').hide();
+$('#login').hide();
+$('#post').hide();
+
 function getQueryVariable(variable)
 {
   var query = window.location.search.substring(1);
@@ -66,11 +70,12 @@ function getUser()
 
 $(document).ready(function()
 {
-  if(getUser() != (false || null))
+  if(getUser() != false)
   {
     console.log("Log user : "+getUser());
     $('#login').hide();
     $('#logout').show();
+    $('#post').show();
   }
   else
   {
