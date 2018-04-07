@@ -29,21 +29,25 @@ sc2.setAccessToken(getQueryVariable('access_token'));
 
 function commentWinnerList(author, authorPermlink, winners)
 {
-	var permlink = steem.formatter.commentPermlink(author, authorPermlink);
-	console.log(permlink);
-	console.log(winners);
-	var message = "test";
+  if (getUser() == author)
+  {
+    var permlink = steem.formatter.commentPermlink(author, authorPermlink);
+    console.log(permlink);
+    console.log(winners);
+    var message = "test";
     sc2.comment('', '', author, authorPermlink, '', message, '', function(err, result)
     {
       console.log(err, result);
     });
+  }
 }
 
-function whoiam()
+function getUser()
 {
   sc2.me(function (err, res) 
   {
     console.log(err, res)
-    console.log(res.user);
+    if (!err)
+      return res.user;
   });
 }
