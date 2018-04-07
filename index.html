@@ -169,7 +169,7 @@
 					console.log(var2);
 					i18next.changeLanguage(this.innerHTML, function() 
 					{
-						//localStorage.setItem("lng", $(this).text());
+						localStorage.setItem("lng", var2);
 						$(document).localize();
 					});
 				});
