@@ -122,8 +122,9 @@ function getInfoVote()
 				    	if(!$("#dble_box").is(":checked")  && $.inArray(result[i].voter, win_list) >= 0) {} // Already win 
 				    	else
 				    	{
-				    		if($("#bots_box").is(":checked") && $.inArray(result[i].voter, bots_list) >= 0) { console.log(result[i].voter);} // Bot
-				    		else vote_participant.push(result[i].voter); // Add list
+				    		if($("#bots_box").is(":checked") && $.inArray(result[i].voter, bots_list) >= 0) {} // Bot
+				    		else
+				    			vote_participant.push(result[i].voter); // Add list
 				    	}
 				    }
 				}
@@ -159,8 +160,8 @@ function getInfoComs()
 				    	else
 				    	{
 				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) {} // Bot
-
-				    		else coms_participant.push(result[i].author); // Add list
+				    		else 
+				    			coms_participant.push(result[i].author); // Add list
 						}
 					}
 				}
@@ -247,6 +248,11 @@ function getRandomDraw()
 function getResult()
 {
   	//console.log("getResult");
+
+  	if(sessionStorage.user === sessionStorage.author)
+  	{
+  		$('#post').show();
+  	}
 
 	if(sessionStorage.winner != "undefined")
 	{ 
@@ -442,12 +448,8 @@ $('#link_form').submit(function(event)
 	start($('#link_field')[0].value);
 });
 
-$('#post').click(function()
+window.onunload = function()
 {
-	commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
-});
-
-window.onunload = function() {
   sessionStorage.clear();
 };
 // END EVENT

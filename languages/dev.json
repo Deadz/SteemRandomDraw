@@ -1,11 +1,9 @@
 {
+	"login" : "Login",
 	"pagename": "Random Draw for steem",
 	"title": "Steem Random Draw",
 	"creatorstring": " Created by ",
 	"errortitle": "Error !",
-	"error1" : "Please, Provide a valid link like https://busy.org/fr/@deadzy/my-contribution",
-	"error2" : "Problem with the link",
-	"certif" :	"Certified random draw",
 	"link": "1. Contest Link : ",
 	"draw": "2. The draw will be done among : ",
 	"upvotes": "UpVotes",
@@ -21,8 +19,11 @@
 	"requirement": "Requirement : ",
 	"participants": " eligible participants for the draw.",
 	"viewwinnerslist": "View list of winners",
-	"post": "Post",
+	"post": "Post the result as a comment.",
 	"winnerslist": "List of winners",
 	"and" : "and",
-	"or" : "or"
+	"or" : "or",
+	"dev" : "Developed by ",
+	"design" : "Graphics by ",
+	"sc2" : "Here is the result of the draw, congratulations to "
 }
