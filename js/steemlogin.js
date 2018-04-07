@@ -1,7 +1,7 @@
 function init()
 {
   $('#login').click(login());
-  //$('#logout').click(logout());
+  $('#logout').click(logout());
 }
 window.onload = init;
 
@@ -27,6 +27,7 @@ sc2.init({
 //authentication
 function login()
 {
+  console.log("Login");
   var link = sc2.getLoginURL();
   if (window.location.search == "")
     window.location.replace(link);
@@ -34,6 +35,7 @@ function login()
 
 function logout()
 {
+  console.log("Logout");
   sc2.revokeToken(function (err, res)
   {
     console.log(err, "logout "+res)
