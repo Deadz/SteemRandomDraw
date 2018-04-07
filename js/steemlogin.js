@@ -59,9 +59,27 @@ function getUser()
     console.log(err, res)
     if (!err)
       return res.user;
+    else
+      return false;
   });
 }
 
-$('#login').click(login);
+$(document).ready(function()
+{
+  if(getUser() != false)
+  {
+    console.log("Co");
+    $('#login').hide();
+  }
 
-$('#logout').click(logout);
+  $('#login').click(function()
+  {
+    login();
+  });
+  $('#login').click(login);
+
+  $('#logout').click(function()
+  {
+    logout();
+  });
+});
