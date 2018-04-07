@@ -74,6 +74,8 @@ $(document).ready(function()
   $('#logout').hide();
   $('#post').hide();
 
+  getUser();
+
   $('#login').click(function()
   {
     console.log("Login");
