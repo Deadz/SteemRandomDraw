@@ -47,8 +47,7 @@ function commentWinnerList(author, authorPermlink, winners)
     //var permlink = steem.formatter.commentPermlink(author, authorPermlink);
     console.log(winners);
     list_winners = winners.join(", @");
-    $('#sc2list').text(list_winners);
-    var message = $('#sc2').text();
+    var message = $('#sc2').text()+"<b>@"+list_winners+"</b><br /><a href='https://deadz.github.io/SteemRandomDraw/'><img src='https://deadz.github.io/SteemRandomDraw/images/random.png' height='150px'/></a>";
     console.log(message);
     // sc2.comment(author, authorPermlink, author, 'winner-announcement', '', message, '', function(err, result)
     // {

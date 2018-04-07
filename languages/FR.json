@@ -25,5 +25,5 @@
 	"or" : "ou",
 	"dev" : "Développé par ",
 	"design" : "Graphisme par ",
-	"sc2" : "Voici le résultat du tirage au sort, félicitation à <b>@<span id='sc2list'></span></b><br />Ce commentaire a été généré par <a href='https://deadz.github.io/SteemRandomDraw/'><b>SteemRandomDraw</b></a>"
+	"sc2" : "Voici le résultat du tirage au sort, félicitation à "
 }
