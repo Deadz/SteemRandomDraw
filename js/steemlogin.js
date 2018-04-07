@@ -12,7 +12,7 @@ function getQueryVariable(variable)
 
 sc2.init({
     app:'delayed-upvotes',
-    callbackURL: 'https://deadz.github.io/SteemRandomDraw/',
+    callbackURL: 'http://localhost:8000/',
     accessToken: 'access_token',
     scope: ['comment']
 })
@@ -21,8 +21,7 @@ sc2.init({
 function login()
 {
   var link = sc2.getLoginURL();
-  if (window.location.search == "")
-    window.location.replace(link);
+  window.location.replace(link);
 }
 
 function logout()
@@ -40,7 +39,7 @@ function logout()
 
 sc2.setAccessToken(getQueryVariable('access_token'));
 
-function commentWinnerList(author, authorPermlink, winners)
+function commentWinnerList(author, authorPermlink, winners, link_site)
 {
   if(sessionStorage.user == author)
   {
@@ -55,7 +54,7 @@ function commentWinnerList(author, authorPermlink, winners)
       if(!err && result)
       {
         $('#post').hide();
-        $('#post').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
+        $('#post').before(`<p><b>${$('#comsend').text()} : <a href='${link_site}/@${author}/${authorPermlink}#@${author}/${permlink}'>${link_site}/@${author}/${authorPermlink}#@${author}/${permlink}</a></b></p>`);
       }
     });
   }
@@ -99,13 +98,17 @@ $(document).ready(function()
     console.log("Logout");
     $('#login').show();
     $('#logout').hide();
+	
+	sessionStorage.setItem("user",""); 
+	$("#btn_form").click();
+	
     logout();
   });
 
   $('#post').on("click", function()
   {
     console.log("commentWinnerList");
-    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
+    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list, sessionStorage.link_site);
   });
 
 });

@@ -1,5 +1,5 @@
 {
-	"login" : "Login",
+	"login" : "Войти",
 	"pagename": "Случайный выбор для steem",
 	"title": "Steem Random Draw",
 	"creatorstring": " Сделано ",
@@ -19,12 +19,12 @@
 	"requirement": "Условия : ",
 	"participants": " - число участников, подходящих под условия.",
 	"viewwinnerslist": "Посмотреть список победителей",
-	"post": "Post the result as a comment.",
+	"post": "Опубликовать результат как комментарий.",
 	"winnerslist": "Список победителей",
 	"and" : "и",
 	"or" : "или",
 	"dev" : "Разработано ",
 	"design" : "Графика ",
-	"sc2" : "Here is the result of the draw, congratulations to ",
-	"comsend" : "Congratulations, the result is well posted!"
+	"sc2" : "Результат случайного выбора, поздравляем ",
+	"comsend" : "Поздравляем, результат был опубликован!"
 }
