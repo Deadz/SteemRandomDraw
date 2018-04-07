@@ -12,7 +12,7 @@ function getQueryVariable(variable)
 
 sc2.init({
     app:'delayed-upvotes',
-    callbackURL: 'http://localhost:8000/',
+    callbackURL: 'https://deadz.github.io/SteemRandomDraw/',
     accessToken: 'access_token',
     scope: ['comment']
 })
