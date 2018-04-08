@@ -16,6 +16,8 @@
 		var win_list = [];
 		var bots_list = [];
 		var number_of_draws = "1";
+		var flag1 = true;
+		var flag2 = true;
 		var reset = $("#winner").html();
 		$.ajax(
 		{
@@ -73,10 +75,17 @@ function getAuthorPermlink(link_full)
 			link_split = link_full.split(regex_v1)[1];
 			sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
 			//console.log(sessionStorage.link_site);
+			flag1 = (sessionStorage.author == link_split.split(regex_v2)[0]);
 			sessionStorage.setItem("author", link_split.split(regex_v2)[0]);
 			//console.log(sessionStorage.author);
+			flag2 = (sessionStorage.permlink == link_split.split(regex_v2)[1]);
 			sessionStorage.setItem("permlink", link_split.split(regex_v2)[1]);
 			//console.log(sessionStorage.permlink);
+			if (!(flag1 && flag2)) 
+			{
+				win_list = [];
+				number_of_draws="1";
+			}
 			resolve();
 		}
 		else
@@ -86,10 +95,17 @@ function getAuthorPermlink(link_full)
 			{
 				sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
 				//console.log(sessionStorage.link_site);
+				flag1 = (sessionStorage.author == link_split.split(regex_v2)[0]);
 				sessionStorage.setItem("author", link_full.split(regex_v2)[4]);
 				//console.log(sessionStorage.author);
+				flag2 = (sessionStorage.permlink == link_split.split(regex_v2)[1]);
 				sessionStorage.setItem("permlink", link_full.split(regex_v2)[5]);
 				//console.log(sessionStorage.permlink);
+				if (!(flag1 && flag2))
+				{
+					win_list = [];
+					number_of_draws="1";
+				}
 				resolve();
 			}
 			else
