@@ -46,7 +46,7 @@ function commentWinnerList(author, authorPermlink, winners, link_site)
     var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     console.log(winners);
     list_winners = winners.join(", @");
-    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/random.png'/></center></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
+    var message = "### "+$('#sc2').text()+"<b>@"+list_winners+"</b>.<br /> <a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/comment.png'/></center></a>";
     console.log(message);
     sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
     {
