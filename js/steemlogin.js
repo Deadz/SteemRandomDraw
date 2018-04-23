@@ -78,13 +78,13 @@ function commentWinnerList(author, authorPermlink, winners)
   {
     var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     list_winners = winners.join(", @");
-    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/random.png'/></center></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
+    var message = $('#com_view_text').html();
     sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
     {
       console.log(err, result);
       if(!err && result)
       {
-        $('#send').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
+        $('#send').before("<p><h3>"+$('#comsend').text()+"</h3><br /> : <b><a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/winner</a></b></p>");
         $('#send_wait').hide();
       }
     });
