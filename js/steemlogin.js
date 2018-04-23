@@ -44,17 +44,15 @@ function logout()
   });
 }
 
-// Request user details if token is available
 if (localStorage.token != null) 
 {
   sc2.setAccessToken(localStorage.token);
   sc2.me(function (err, result) 
   {
-    console.log('/me', err, result); // DEBUG
+    //console.log('/me', err, result); // DEBUG
     if (!err) 
     {
-      console.log(result);
-      localStorage.setItem("t_use", result.account);
+      localStorage.setItem("t_use", result.user);
     }
   });
 }
@@ -63,11 +61,11 @@ else
   sc2.setAccessToken(getQueryVariable('access_token'));
   sc2.me(function (err, result) 
   {
-    console.log('/me', err, result); // DEBUG
+    //console.log('/me', err, result); // DEBUG
     if (!err) 
     {
-      console.log(result);
-      localStorage.setItem("t_use", result.account);
+      console.log(result.user);
+      localStorage.setItem("t_use", result.user);
     }
   });
 }
@@ -95,24 +93,18 @@ function commentWinnerList(author, authorPermlink, winners)
 
 function getUser()
 {
-  sc2.me(function (err, res) 
+  $('#login').hide();
+  $('#logout').hide();
+  $('#post').hide();
+
+  if(localStorage.t_use != null)
   {
-    //console.log(err, res)
-    if (!err && res != null)
-    {
-      $('#user').html(res.user);
-      sessionStorage.setItem("user", res.user);
-      $('#login').hide();
-      $('#logout').show();
-      $('#post').hide();
-      console.log(res.user);
-    }
-    else
-    {
-      $('#logout').hide();
-      $('#post').hide();
-    } 
-  });
+    $('#logout').show();
+  }
+  else
+  {
+    $('#login').show();
+  } 
 }
 
 getUser();
