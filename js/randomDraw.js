@@ -263,7 +263,7 @@ function getResult()
 				"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.num_of_draws+"</b>");
 		else 
 			$("#winner").html("<h1><img src='images/steem.png'> <a href='"+sessionStorage.link_site+"/@"+sessionStorage.winner+"' target='_blank'>@"+sessionStorage.winner+
-				"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.num_of_draws+"</b>"):
+				"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.num_of_draws+"</b>");
 	}
 
 	$('#coms_nb').html(sessionStorage.coms_nb);
