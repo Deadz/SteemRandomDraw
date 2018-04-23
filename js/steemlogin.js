@@ -39,6 +39,7 @@ function logout()
       $('#login').show();
       $('#logout').hide();
       localStorage.setItem("token", null);
+      localStorage.setItem("user", null);
     }
   });
 }
@@ -50,6 +51,10 @@ if (localStorage.token != null)
   sc2.me(function (err, result) 
   {
     console.log('/me', err, result); // DEBUG
+    if (!err) 
+    {
+      localStorage.setItem("user", result.account);
+    }
   });
 }
 else
