@@ -99,10 +99,13 @@ function getUser()
 
   if(localStorage.t_use != null)
   {
+    $('#user').text(localStorage.t_use);
     $('#logout').show();
+    $('#login').hide();
   }
   else
   {
+    $('#logout').hide();
     $('#login').show();
   } 
 }
@@ -115,7 +118,6 @@ $(document).ready(function()
   {
     console.log("Login");
     login();
-    console.log(getUser());
   });
 
   $('#logout').click(function()
