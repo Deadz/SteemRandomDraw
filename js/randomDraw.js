@@ -250,7 +250,7 @@ function getResult()
 {
   	//console.log("getResult");
 
-  	if(sessionStorage.user === sessionStorage.author)
+  	if(localStorage.t_use === sessionStorage.author)
   	{
   		$('#post').show();
   	}
