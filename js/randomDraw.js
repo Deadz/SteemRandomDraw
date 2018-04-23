@@ -6,6 +6,7 @@
 		$('#err_div').hide();
 		$('#btn_win_list').hide();
 		$("#choi_view").hide();
+		$("#post").hide();
 	// END SET.VIEW
 
 	// SET.VAR
@@ -252,7 +253,6 @@ function getResult()
 
   	if(localStorage.t_use === sessionStorage.author)
   	{
-		console.log('auth = use');
   		$('#post').show();
   	}
 
