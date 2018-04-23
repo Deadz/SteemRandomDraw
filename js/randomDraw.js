@@ -308,8 +308,7 @@ function getResult()
 		$('#part_nb').html(sessionStorage.vote_valid);
 	}
 
-	q = sessionStorage.winner;
-	list_winners = q.join(", @");
+	list_winners = win_list.join(", @");
 	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/random.png'/></center></a><br />"
 	+$('#sc2').text()+"<b>@"+list_winners+"</b>.");
 
