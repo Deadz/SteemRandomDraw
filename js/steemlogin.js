@@ -103,13 +103,13 @@ function show_btn()
   {
     $('#logout').hide();
     $('#login').show();
-  } 
+  }
 }
+
+$('#send_wait').hide();
 
 $(document).ready(function()
 {
-  $('#send_wait').hide();
-
   $('#login').click(function()
   {
     console.log("Login");
