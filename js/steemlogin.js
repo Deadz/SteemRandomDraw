@@ -84,7 +84,7 @@ function commentWinnerList(author, authorPermlink, winners)
       console.log(err, result);
       if(!err && result)
       {
-        $('#send').before("<p><h3>"+$('#comsend').text()+"</h3><br /> : <b><a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/winner</a></b></p>");
+        $('#send').before("<center><h3>"+$('#comsend').text()+"</h3><br /> <b><a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/winner</a></b></center>");
         $('#send_wait').hide();
       }
     });
