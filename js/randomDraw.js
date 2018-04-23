@@ -309,7 +309,7 @@ function getResult()
 	}
 
 	list_winners = win_list.join(", @");
-	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/pub.png' height='100px' /></center></a><br /><h2>"
+	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/comment.png' height='100px' /></center></a><br /><h2>"
 	+$('#sc2').text()+"<b>@"+list_winners+"</b>.</h2>");
 
 	if(sessionStorage.num_of_draws >= 2)
