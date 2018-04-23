@@ -84,6 +84,7 @@ function getAuthorPermlink(link_full)
 			regex_v3 = new RegExp("https://d.tube");
 			if (regex_v3.test(link_full)) 
 			{
+				console.log(link_full.split(regex_v2));
 				sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
 				//console.log(sessionStorage.link_site);
 				sessionStorage.setItem("author", link_full.split(regex_v2)[4]);
