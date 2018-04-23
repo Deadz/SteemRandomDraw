@@ -53,6 +53,7 @@ if (localStorage.token != null)
     if (!err) 
     {
       localStorage.setItem("t_use", result.user);
+      show_btn();
     }
   });
 }
@@ -66,6 +67,7 @@ else
     {
       console.log(result.user);
       localStorage.setItem("t_use", result.user);
+      show_btn();
     }
   });
 }
@@ -91,6 +93,21 @@ function commentWinnerList(author, authorPermlink, winners)
   }
 }
 
+function show_btn()
+{
+  if(localStorage.t_use != null)
+  {
+    $('#user').text(localStorage.t_use);
+    $('#logout').show();
+    $('#login').hide();
+  }
+  else
+  {
+    $('#logout').hide();
+    $('#login').show();
+  } 
+}
+
 $(document).ready(function()
 {
   $('#login').click(function()
@@ -107,22 +124,12 @@ $(document).ready(function()
     logout();
   });
 
-  $('#post').on("click", function()
-  {
-    console.log("commentWinnerList");
-    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
-  });
+  // $('#post').on("click", function()
+  // {
+  //   console.log("commentWinnerList");
+  //   commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
+  // });
 
-  if(localStorage.t_use != null)
-  {
-    $('#user').text(localStorage.t_use);
-    $('#logout').show();
-    $('#login').hide();
-  }
-  else
-  {
-    $('#logout').hide();
-    $('#login').show();
-  } 
+  show_btn();
 
 });

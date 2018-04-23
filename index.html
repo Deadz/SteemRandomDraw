@@ -15,7 +15,7 @@
 	<title data-i18n="pagename"></title>
 </head>
 <body>
-	<div class="w3-light-grey w3-center w3-padding">
+	<div class="w3-light-grey w3-center">
 		<img src="images/random.png" title="Steem Random Draw, logo by radudangratian" height="150px" />
 	</div>
 	
@@ -88,7 +88,7 @@
 				<h3 data-i18n="winner"></h3>
 				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1 data-i18n="nobody"></h1></div>
 				<span id="sc2" data-i18n="sc2" style="visibility: hidden;"></span>
-				<button class="w3-button w3-block w3-round w3-dark-gray w3-padding" id="post" data-i18n="post"></button>
+				<button class="w3-button w3-block w3-round w3-dark-gray w3-padding" id="post" data-i18n="post" onclick="document.getElementById('com_view').style.display='block'"></button>
 				<br>
 				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
@@ -139,6 +139,20 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="w3-modal" id="com_view">
+			<div class="w3-modal-content w3-card">
+				<header class="w3-container w3-dark-grey w3-center"> 
+					<span onclick="document.getElementById('com_view').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+					<h2 data-i18n="winnerslist"></h2>
+				</header>
+
+				<div class="w3-container w3-padding-large">
+					<span id="com_view_text"></span>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<footer class="w3-container w3-dark-grey w3-center w3-margin-top">
 			<p><span data-i18n="dev"></span><b><a href="https://busy.org/@clevershovel" target='_blank'>@clevershovel</a></b> & <b><a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></b>. <span data-i18n="design"></span><b><a href="https://busy.org/@radudangratian" target='_blank'>@radudangratian</a></b></p>
