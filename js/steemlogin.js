@@ -106,8 +106,6 @@ function show_btn()
   }
 }
 
-$('#send_wait').hide();
-
 $(document).ready(function()
 {
   $('#login').click(function()
@@ -128,7 +126,7 @@ $(document).ready(function()
   {
     console.log("commentWinnerList");
     $('#send').hide();
-    $('#send_wait').show();
+    $('#send_wait').html('<p class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>');
     commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
   });
 
