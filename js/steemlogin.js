@@ -91,23 +91,6 @@ function commentWinnerList(author, authorPermlink, winners)
   }
 }
 
-function getUser()
-{
-  if(localStorage.t_use != null)
-  {
-    $('#user').text(localStorage.t_use);
-    $('#logout').show();
-    $('#login').hide();
-  }
-  else
-  {
-    $('#logout').hide();
-    $('#login').show();
-  } 
-}
-
-getUser();
-
 $(document).ready(function()
 {
   $('#login').click(function()
@@ -129,5 +112,17 @@ $(document).ready(function()
     console.log("commentWinnerList");
     commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
   });
+
+  if(localStorage.t_use != null)
+  {
+    $('#user').text(localStorage.t_use);
+    $('#logout').show();
+    $('#login').hide();
+  }
+  else
+  {
+    $('#logout').hide();
+    $('#login').show();
+  } 
 
 });
