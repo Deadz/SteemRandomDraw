@@ -39,7 +39,7 @@ function logout()
       $('#login').show();
       $('#logout').hide();
       localStorage.setItem("token", "null");
-      localStorage.setItem("user", "null");
+      localStorage.setItem("t_use", "null");
     }
   });
 }
@@ -53,6 +53,7 @@ if (localStorage.token != "null")
     console.log('/me', err, result); // DEBUG
     if (!err) 
     {
+      console.log(result);
       localStorage.setItem("user", result.account);
     }
   });
