@@ -5,7 +5,11 @@ function getQueryVariable(variable)
   for (var i=0;i<vars.length;i++)
   {
    var pair = vars[i].split("=");
-   if(pair[0] == variable){return pair[1];}
+   if(pair[0] == variable)
+    {
+      localStorage.setItem("token", pair[1]);
+      return pair[1];
+    }
   }
   return(false);
 }
@@ -21,7 +25,8 @@ sc2.init({
 function login()
 {
   var link = sc2.getLoginURL();
-  window.location.replace(link);
+  if (window.location.search == "")
+    window.location.replace(link);
 }
 
 function logout()
@@ -33,20 +38,33 @@ function logout()
     {
       $('#login').show();
       $('#logout').hide();
+      localStorage.setItem("token", null);
     }
   });
 }
 
-sc2.setAccessToken(getQueryVariable('access_token'));
+// Request user details if token is available
+if (localStorage.token != null) 
+{
+  sc2.setAccessToken(localStorage.token);
+  sc2.me(function (err, result) 
+  {
+    console.log('/me', err, result); // DEBUG
+  });
+}
+else
+{
+  sc2.setAccessToken(getQueryVariable('access_token'));
+}
 
-function commentWinnerList(author, authorPermlink, winners, link_site)
+function commentWinnerList(author, authorPermlink, winners)
 {
   if(sessionStorage.user == author)
   {
     var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     console.log(winners);
     list_winners = winners.join(", @");
-    var message = "### "+$('#sc2').text()+"<b>@"+list_winners+"</b>.<br /> <a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/comment.png'/></center></a>";
+    var message = "<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/random.png'/></center></a><br />"+$('#sc2').text()+"<b>@"+list_winners+"</b>.";
     console.log(message);
     sc2.comment(author, authorPermlink, author, permlink, '', message, '', function(err, result)
     {
@@ -54,7 +72,7 @@ function commentWinnerList(author, authorPermlink, winners, link_site)
       if(!err && result)
       {
         $('#post').hide();
-        $('#post').before(`<p><b>${$('#comsend').text()} : <a href='${link_site}/@${author}/${authorPermlink}#@${author}/${permlink}'>${link_site}/@${author}/${authorPermlink}#@${author}/${permlink}</a></b></p>`);
+        $('#post').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
       }
     });
   }
@@ -98,17 +116,13 @@ $(document).ready(function()
     console.log("Logout");
     $('#login').show();
     $('#logout').hide();
-	
-	sessionStorage.setItem("user",""); 
-	$("#btn_form").click();
-	
     logout();
   });
 
   $('#post').on("click", function()
   {
     console.log("commentWinnerList");
-    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list, sessionStorage.link_site);
+    commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
   });
 
 });
