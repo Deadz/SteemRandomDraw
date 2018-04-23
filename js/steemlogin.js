@@ -93,10 +93,6 @@ function commentWinnerList(author, authorPermlink, winners)
 
 function getUser()
 {
-  $('#login').hide();
-  $('#logout').hide();
-  $('#post').hide();
-
   if(localStorage.t_use != null)
   {
     $('#user').text(localStorage.t_use);
