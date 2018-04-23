@@ -96,7 +96,22 @@ function getAuthorPermlink(link_full)
 			}
 			else
 			{
-				reject("Please, Provide a valid link like https://busy.org/fr/@deadzy/my-contribution");
+				regex_v4 = new RegExp("https://dlive.io");
+				if (regex_v4.test(link_full)) 
+				{
+					ll = link_full.split(regex_v2).length;
+					sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
+					//console.log(sessionStorage.link_site);
+					sessionStorage.setItem("author", link_full.split(regex_v2)[l-2]);
+					//console.log(sessionStorage.author);
+					sessionStorage.setItem("permlink", link_full.split(regex_v2)[l-1]);
+					//console.log(sessionStorage.permlink);
+					resolve();
+				}
+				else
+				{
+					reject("Please, Provide a valid link like https://busy.org/fr/@deadzy/my-contribution");
+				}
 			}
 		}
 	})
