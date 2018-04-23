@@ -97,7 +97,10 @@ function getAuthorPermlink(link_full)
 			else
 			{
 				regex_v4 = new RegExp("https://dlive.io");
-				if (regex_v4.test(link_full)) 
+				regex_v5 = new RegExp("https://zappl.com");
+				regex_v6 = new RegExp("https://dmania.lol");
+
+				if (regex_v4.test(link_full) || regex_v5.test(link_full) || regex_v6.test(link_full)) 
 				{
 					l = link_full.split(regex_v2).length;
 					sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
@@ -326,8 +329,8 @@ function getResult()
 	}
 
 	list_winners = win_list.join(", @");
-	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/comment.png' width='90%' /></center></a><br /><h2>"
-	+$('#sc2').text()+"<b>@"+list_winners+"</b>.</h2>");
+	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/pub.png' width='90%' /></center></a><center><h2>"
+	+$('#sc2').text()+"<b>@"+list_winners+"</b>.</h2></center>");
 
 	if(sessionStorage.num_of_draws >= 2)
 		$('#btn_win_list').show();
