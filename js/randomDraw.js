@@ -252,6 +252,7 @@ function getResult()
 
   	if(localStorage.t_use === sessionStorage.author)
   	{
+		console.log('auth = use');
   		$('#post').show();
   	}
 
