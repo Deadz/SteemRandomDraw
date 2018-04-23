@@ -44,7 +44,7 @@ function logout()
   });
 }
 
-if (localStorage.token != null) 
+if(localStorage.token != null) 
 {
   sc2.setAccessToken(localStorage.token);
   sc2.me(function (err, result) 
@@ -74,7 +74,7 @@ else
 
 function commentWinnerList(author, authorPermlink, winners)
 {
-  if(sessionStorage.user == author)
+  if(localStorage.t_use == author)
   {
     var permlink = steem.formatter.commentPermlink(author, 'winner-announcement');
     list_winners = winners.join(", @");
@@ -84,8 +84,8 @@ function commentWinnerList(author, authorPermlink, winners)
       console.log(err, result);
       if(!err && result)
       {
-        $('#post').hide();
-        $('#post').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
+        $('#send').before("<p><b>"+$('#comsend').text()+" : <a href='https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"'>https://busy.org/@"+author+"/"+authorPermlink+"/#@"+author+"/"+permlink+"</a></b></p>");
+        $('#send_wait').hide();
       }
     });
   }
@@ -108,6 +108,8 @@ function show_btn()
 
 $(document).ready(function()
 {
+  $('#send_wait').hide();
+
   $('#login').click(function()
   {
     console.log("Login");
@@ -125,6 +127,8 @@ $(document).ready(function()
   $('#send').on("click", function()
   {
     console.log("commentWinnerList");
+    $('#send').hide();
+    $('#send_wait').show();
     commentWinnerList(sessionStorage.author, sessionStorage.permlink, win_list);
   });
 
