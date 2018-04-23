@@ -54,13 +54,22 @@ if (localStorage.token != null)
     if (!err) 
     {
       console.log(result);
-      localStorage.setItem("user", result.account);
+      localStorage.setItem("t_use", result.account);
     }
   });
 }
 else
 {
   sc2.setAccessToken(getQueryVariable('access_token'));
+  sc2.me(function (err, result) 
+  {
+    console.log('/me', err, result); // DEBUG
+    if (!err) 
+    {
+      console.log(result);
+      localStorage.setItem("t_use", result.account);
+    }
+  });
 }
 
 function commentWinnerList(author, authorPermlink, winners)
