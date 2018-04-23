@@ -73,11 +73,11 @@ function getAuthorPermlink(link_full)
 		{
 			link_split = link_full.split(regex_v1)[1];
 			sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
-			//console.log(sessionStorage.link_site);
+			console.log(sessionStorage.link_site);
 			sessionStorage.setItem("author", link_split.split(regex_v2)[0]);
-			//console.log(sessionStorage.author);
+			console.log(sessionStorage.author);
 			sessionStorage.setItem("permlink", link_split.split(regex_v2)[1]);
-			//console.log(sessionStorage.permlink);
+			console.log(sessionStorage.permlink);
 			resolve();
 		}
 		else
@@ -85,12 +85,12 @@ function getAuthorPermlink(link_full)
 			regex_v3 = new RegExp("https://d.tube");
 			if (regex_v3.test(link_full)) 
 			{
-				l = link_full.split(regex_v2).length;
+				d = link_full.split(regex_v2).length;
 				sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
 				//console.log(sessionStorage.link_site);
-				sessionStorage.setItem("author", link_full.split(regex_v2)[l-2]);
+				sessionStorage.setItem("author", link_full.split(regex_v2)[d-2]);
 				//console.log(sessionStorage.author);
-				sessionStorage.setItem("permlink", link_full.split(regex_v2)[l-1]);
+				sessionStorage.setItem("permlink", link_full.split(regex_v2)[d-1]);
 				//console.log(sessionStorage.permlink);
 				resolve();
 			}
@@ -99,12 +99,12 @@ function getAuthorPermlink(link_full)
 				regex_v4 = new RegExp("https://dlive.io");
 				if (regex_v4.test(link_full)) 
 				{
-					ll = link_full.split(regex_v2).length;
+					l = link_full.split(regex_v2).length;
 					sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
 					//console.log(sessionStorage.link_site);
-					sessionStorage.setItem("author", link_full.split(regex_v2)[ll-2]);
+					sessionStorage.setItem("author", link_full.split(regex_v2)[l-2]);
 					//console.log(sessionStorage.author);
-					sessionStorage.setItem("permlink", link_full.split(regex_v2)[ll-1]);
+					sessionStorage.setItem("permlink", link_full.split(regex_v2)[l-1]);
 					//console.log(sessionStorage.permlink);
 					resolve();
 				}
