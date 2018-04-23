@@ -38,14 +38,14 @@ function logout()
     {
       $('#login').show();
       $('#logout').hide();
-      localStorage.setItem("token", null);
-      localStorage.setItem("user", null);
+      localStorage.setItem("token", "null");
+      localStorage.setItem("user", "null");
     }
   });
 }
 
 // Request user details if token is available
-if (localStorage.token != null) 
+if (localStorage.token != "null") 
 {
   sc2.setAccessToken(localStorage.token);
   sc2.me(function (err, result) 
