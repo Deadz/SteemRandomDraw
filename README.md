@@ -9,7 +9,7 @@ Example
 
 ![st3](https://user-images.githubusercontent.com/35721447/39300335-3e815272-4943-11e8-8616-16a891839c94.png)
 
-And the winner with the current highest number of Upvote is displayed, along side list of people involved in the contest.
+And the app makes a random draw for you, along side list of people involved in the contest.
 It's very easy to use and efficient.
 
 Our MIT [license](https://github.com/Deadz/SteemRandomDraw/blob/master/LICENSE)
