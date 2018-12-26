@@ -1,5 +1,15 @@
 // SET
-	// INIT.VAR
+	// SET.VIEW
+		$('#wait').hide();
+		$('#result').hide();
+		$('#nobody').hide();
+		$('#err_div').hide();
+		$('#btn_win_list').hide();
+		$("#choi_view").hide();
+		$("#post").hide();
+	// END SET.VIEW
+
+	// SET.VAR
 		steem.api.setOptions({ url: 'https://api.steemit.com' });
 		var vote_participant = [];
 		var coms_participant = [];
@@ -17,14 +27,14 @@
 				bots_list = d.bots;
 			}
 		});
-	// END INIT.VAR
+	// END SET.VAR
 
 	// SET.VAL.SAVE
-		$('#UpVoteSlider')[0].value = localStorage.vote_min;
+		$("#vote_field").val(localStorage.vote_min);
 		$("#coms_field").val(localStorage.coms_text);
 
-		if(localStorage.repl_box == "false") $("#repl_box").prop('checked', false);
-		else $("#repl_box").prop('checked', true);
+		$("#choi_field option[value='"+localStorage.choi_box+"']").prop('selected', true);
+
 		if(localStorage.coms_box == "false") $("#coms_box").prop('checked', false);
 		else $("#coms_box").prop('checked', true);
 		if(localStorage.vote_box == "false") $("#vote_box").prop('checked', false);
@@ -37,13 +47,25 @@
 // END SET
 
 // FUNCTION
-
-// Cutting the link, retrieving the author and the permlink 
 function getAuthorPermlink(link_full)
 {
 	return new Promise((resolve, reject) => 
 	{
-		//console.log("getInfoLink");		
+		//console.log("getInfoLink");
+		
+		regex_v0 = new RegExp("https://golos.io");
+
+		if (regex_v0.test(link_full)) 
+		{
+			steem.api.setOptions({ url: 'wss://ws.golos.io' }); // assuming websocket is work at ws.golos.io
+			steem.config.set('address_prefix','GLS');
+			steem.config.set('chain_id','782a3039b478c839e4cb0c941ff4eaeb7df40bdd68bd441afd444b9da763de12');
+		}
+		else
+		{
+			steem.api.setOptions({ url: 'https://api.steemit.com' });
+		}
+		
 		regex_v1 = new RegExp("/@");
 		regex_v2 = new RegExp("/");
 
@@ -51,11 +73,11 @@ function getAuthorPermlink(link_full)
 		{
 			link_split = link_full.split(regex_v1)[1];
 			sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
-			//console.log(sessionStorage.link_site);
+			console.log(sessionStorage.link_site);
 			sessionStorage.setItem("author", link_split.split(regex_v2)[0]);
-			//console.log(sessionStorage.author);
+			console.log(sessionStorage.author);
 			sessionStorage.setItem("permlink", link_split.split(regex_v2)[1]);
-			//console.log(sessionStorage.permlink);
+			console.log(sessionStorage.permlink);
 			resolve();
 		}
 		else
@@ -74,35 +96,30 @@ function getAuthorPermlink(link_full)
 			}
 			else
 			{
-				reject("Please, Provide a valid link like https://busy.org/fr/@deadzy/my-contribution");
+				regex_v4 = new RegExp("https://dlive.io");
+				regex_v5 = new RegExp("https://zappl.com");
+				regex_v6 = new RegExp("https://dmania.lol");
+
+				if (regex_v4.test(link_full) || regex_v5.test(link_full) || regex_v6.test(link_full)) 
+				{
+					l = link_full.split(regex_v2).length;
+					sessionStorage.setItem("link_site", link_full.split(regex_v2)[0]+"//"+link_full.split(regex_v2)[2]);
+					//console.log(sessionStorage.link_site);
+					sessionStorage.setItem("author", link_full.split(regex_v2)[l-2]);
+					//console.log(sessionStorage.author);
+					sessionStorage.setItem("permlink", link_full.split(regex_v2)[l-1]);
+					//console.log(sessionStorage.permlink);
+					resolve();
+				}
+				else
+				{
+					reject("Please, Provide a valid link like https://busy.org/fr/@deadzy/my-contribution");
+				}
 			}
 		}
 	})
 }
 
-// Retrieving the number of votes and comments
-function getInfoBase()
-{
-	return new Promise((resolve, reject) => 
-	{
-		steem.api.getContent(sessionStorage.author, sessionStorage.permlink, function(err, result)
-	  {
-	  	if(err == null)
-			{
-				sessionStorage.setItem("vote_nb", result.active_votes.length); // Number of upvote
-	  		sessionStorage.setItem("coms_nb", result.children); // Number of coms
-	  		sessionStorage.setItem("childnb", result.children);
-				resolve(result);
-			}
-			else
-			{
-				reject(err);
-			}
-	  });
-	})
-}
-
-// Creation of the list of users who have voted and who correspond to the conditions
 function getInfoVote() 
 {
 	return new Promise((resolve, reject) => 
@@ -113,7 +130,10 @@ function getInfoVote()
 
 			if(err == null) 
 			{
-				vote_min = $('#UpVoteValue')[0].innerText*100;
+				sessionStorage.setItem("vote_nb", result.length);
+
+				if($('#vote_field')[0].value != "") vote_min = $('#vote_field')[0].value*100;
+				else vote_min = 0;
 
 				for (var i = 0; i < sessionStorage.vote_nb; i++)
 				{
@@ -128,6 +148,7 @@ function getInfoVote()
 				    	}
 				    }
 				}
+				sessionStorage.setItem("vote_valid", vote_participant.length);
 				resolve();
 			}
 			else
@@ -135,70 +156,9 @@ function getInfoVote()
 				reject(err);
 			}
 		});
-  })
+  	})
 }
 
-
-function getReplies(author, permlink)
-{
-	return new Promise((resolve, reject) => 
-	{
-	  steem.api.getContentReplies(author, permlink, function(err, result)
-	  {
-	  	if(err == null)
-			{
-				resolve(result);
-			}
-			else
-			{
-				reject(err);
-			}
-	  });
-	})
-}
-
-// Creation of the list of users who have commented (and replied to comments), which correspond to the conditions
-async function fetchReplies(author, permlink)
-{
-	reply = await getReplies(author, permlink);
-	reply.forEach(function(element)
-	{
-	  // console.log(element);
-	  sessionStorage.setItem("childnb", sessionStorage.childnb-1);
-	  var regex =  new RegExp(localStorage.coms_text, "ig");
-		if(regex.test(element.body) == true && element.author != sessionStorage.author)
-		{
-			if($.inArray(element.author, coms_participant) === -1) // Already in the list
-			{
-				if(!$("#dble_box").is(":checked") && $.inArray(element.author, win_list) >= 0) 
-				{} // Already win
-		    else
-		    {
-		    	if($("#bots_box").is(":checked") && $.inArray(element.author, bots_list) >= 0)
-		    	{} // Bot
-		    	else 
-		    	{
-		    		coms_participant.push(element.author); // Add list
-		    	}
-				}
-			}
-		}
-	  if(element.children > 0)
-	  {
-	  	fetchReplies(element.author, element.permlink);
-	  }
-	  else
-	  {
-	  	if(sessionStorage.childnb == 0)
-		  {
-		  	getRandomDraw();
-				getResult();
-		  }
-	  }
-	});
-}
-
-// Creation of the list of users who have commented and who correspond to the conditions
 function getInfoComs() 
 {
 	return new Promise((resolve, reject) => 
@@ -206,28 +166,26 @@ function getInfoComs()
 		steem.api.getContentReplies(sessionStorage.author, sessionStorage.permlink, function(err, result)
 		{
 			//console.log("getComsValid");
+
 			if(err == null)
 			{
-				coms_noReply = result.length; // Number of first com
+				sessionStorage.setItem("coms_nb", result.length);
 
-				for(var i = 0; i < coms_noReply; i++)
+				for (var i = 0; i < sessionStorage.coms_nb; i++)
 				{
 					var regex =  new RegExp(localStorage.coms_text, "ig");
 					if(regex.test(result[i].body) == true && result[i].author != sessionStorage.author)
 					{
-						if(!$("#dble_box").is(":checked")  && $.inArray(result[i].author, win_list) >= 0) 
-						{} // Already win
-				    else
-				    {
-				    	if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0)
-				    	{} // Bot
-				    	else 
+						if(!$("#dble_box").is(":checked")  && $.inArray(result[i].author, win_list) >= 0) {} // Already win
+				    	else
 				    	{
-				    		coms_participant.push(result[i].author); // Add list
-				    	}
+				    		if($("#bots_box").is(":checked") && $.inArray(result[i].author, bots_list) >= 0) {} // Bot
+				    		else 
+				    			coms_participant.push(result[i].author); // Add list
 						}
 					}
 				}
+				sessionStorage.setItem("coms_valid", coms_participant.length);
 				resolve();
 			}
 			else
@@ -238,77 +196,72 @@ function getInfoComs()
 	})
 }
 
-// Random number
 function randomNumber(max)
 {
 	return Math.floor(Math.random()*(max));
 }
 
-// Random draw
 function getRandomDraw()
 {
 	return new Promise((resolve, reject) => 
 	{
 		//console.log("getRandomDraw");
 
-		if($("#coms_box").is(":checked") && $("#vote_box").is(":checked"))
+		if($("#coms_box").is(":checked"))
 		{
-			if($('input[name=choi_field]:checked').val() == "or") // Vote or Coms
+			if($("#vote_box").is(":checked")) // Vote & Coms
 			{
-				vote_participant.forEach(function(e)
+				nb = 0;
+
+				if($('#choi_field').val() == "or")
 				{
-					participants = coms_participant;
-					if($.inArray(e, coms_participant) === -1)
+					for (i = 0; i < vote_participant.length; i++) 
 					{
-						participants.push(e);
+						nb++;
+						participants.push(vote_participant[i]);
+						$("#tab").append("<tr><td>"+nb+"</td><td>"+vote_participant[i]+"</td></tr>");
 					}
-				});
-			}
-			else // Vote and Coms
-			{
-				vote_participant.forEach(function(e)
+					for (i = 0; i < coms_participant.length; i++)
+					{
+						nb++;
+						participants.push(coms_participant[i]);
+						$("#tab").append("<tr><td>"+nb+"</td><td>"+coms_participant[i]+"</td></tr>");
+					}
+				}
+				else
 				{
-					if($.inArray(e, coms_participant) >= 0)
-					{
-						participants.push(e);
+					for (i = 0; i < vote_participant.length; i++)
+					{	
+						if($.inArray(vote_participant[i], coms_participant) >= 0)
+						{
+							nb++;
+							participants.push(vote_participant[i]);
+							$("#tab").append("<tr><td>"+nb+"</td><td>"+vote_participant[i]+"</td></tr>");
+						}
 					}
-				});
+				}
+
+				sessionStorage.setItem("nb_valid", participants.length);
+				sessionStorage.setItem("winner", participants[randomNumber(participants.length)]);
 			}
-			for (i = 0; i < participants.length; i++)
-			{
-				$("#tab").append("<tr><td>"+(i+1)+"</td><td>"+coms_participant[i]+"</td></tr>");
-			}
-			sessionStorage.setItem("nb_valid", participants.length);
-			sessionStorage.setItem("winner", participants[randomNumber(participants.length)]);
-			resolve();
-		}
-		else
-		{
-			if($("#coms_box").is(":checked")) // Only Coms
+			else // Coms
 			{
 				for (i = 0; i < coms_participant.length; i++)
 				{
 					$("#tab").append("<tr><td>"+(i+1)+"</td><td>"+coms_participant[i]+"</td></tr>");
 				}
-				sessionStorage.setItem("nb_valid", coms_participant.length);
 				sessionStorage.setItem("winner", coms_participant[randomNumber(coms_participant.length)]);
-				resolve();
-			}
-			else if($("#vote_box").is(":checked")) // Only vote
-			{
-				for (i = 0; i < vote_participant.length; i++)
-				{
-					$("#tab").append("<tr><td>"+(i+1)+"</td><td>"+vote_participant[i]+"</td></tr>");
-				}
-				sessionStorage.setItem("nb_valid", vote_participant.length);
-				sessionStorage.setItem("winner", vote_participant[randomNumber(vote_participant.length)]);
-				resolve();
-			}
-			else
-			{
-				reject("Err random draw");
 			}
 		}
+		else // Vote
+		{
+			for (i = 0; i < vote_participant.length; i++)
+			{
+				$("#tab").append("<tr><td>"+(i+1)+"</td><td>"+vote_participant[i]+"</td></tr>");
+			}
+			sessionStorage.setItem("winner", vote_participant[randomNumber(vote_participant.length)]);
+		}
+    	resolve();
 	})
 }
 
@@ -316,9 +269,13 @@ function getResult()
 {
   	//console.log("getResult");
 
-  console.log(sessionStorage.winner);
+  	if(localStorage.t_use === sessionStorage.author)
+  	{
+  		$('#post').show();
+  	}
+
 	if(sessionStorage.winner != "undefined")
-	{
+	{ 
 		win_list.push(sessionStorage.winner); // Winner list
 		sessionStorage.setItem("num_of_draws", number_of_draws++); // Number of draw
 		if(sessionStorage.link_site == "https://d.tube")
@@ -328,56 +285,65 @@ function getResult()
 			$("#winner").html("<h1><img src='images/steem.png'> <a href='"+sessionStorage.link_site+"/@"+sessionStorage.winner+"' target='_blank'>@"+sessionStorage.winner+
 				"</a></h1><b class='w3-right'><i class='fa fa-certificate'></i> Certified random draw n°"+sessionStorage.num_of_draws+"</b>");
 	}
-	else
-	{
-		$("#winner").html("<h1><img src='images/steem.png'>Noboddy is eligible</h1>");
-	}
 
 	$('#coms_nb').html(sessionStorage.coms_nb);
 	$('#vote_nb').html(sessionStorage.vote_nb);
-	$('#part_nb').html(sessionStorage.nb_valid);
 
 	if($("#coms_box").is(":checked")) // If opt coms
 	{
 		if($("#vote_box").is(":checked")) // If otp coms & vote
 		{
-			if (localStorage.coms_text != "")
+			$('#cond').html($('#vote_tit').html()+"<b class='w3-text-blue'> "+$('#choi_field option:selected').text()+" </b>"+$('#coms_tit').html()); // Show condition
+			$('#part_nb').html(sessionStorage.nb_valid);
+			if (localStorage.vote_min != "")
 			{
-				$('#cond_opt').html("<b class='w3-text-blue'>"+$('#vote_tit').html()+"</b> <i>("+localStorage.vote_min+"%)</i> "+$('input[name=choi_field]:checked').val()+" <b class='w3-text-blue'>"+$('#coms_tit').html()+"</b> <i>(\""+localStorage.coms_text+"\")</i>");
+				if (localStorage.coms_text != "")
+					$('#cond_opt').html($('#vote_cond').html()+" <b>"+localStorage.vote_min+"%</b> & "+$('#coms_cond').html()+" <b>\""+localStorage.coms_text+"\"</b>");
+				else
+					$('#cond_opt').html($('#vote_cond').html()+" <b>"+localStorage.vote_min+"%</b>");
 			}
 			else
-			{
-				$('#cond_opt').html("<b class='w3-text-blue'>"+$('#vote_tit').html()+"</b> <i>("+localStorage.vote_min+"%)</i> "+$('input[name=choi_field]:checked').val()+" <b class='w3-text-blue'>"+$('#coms_tit').html()+"</b>");
-			}
+				if (localStorage.coms_text != "")
+					$('#cond_opt').html($('#coms_cond').html()+" <b>\""+localStorage.coms_text+"\"</b>");
+				else
+					$('#cond_opt').html("");
 		}
 		else // If coms only
 		{
 			if (localStorage.coms_text != "")
-				$('#cond_opt').html("<b class='w3-text-blue'>"+$('#coms_tit').html()+"</b> <i>(\""+localStorage.coms_text+"\")</i>");
+				$('#cond_opt').html($('#coms_cond').html()+" <b>\""+localStorage.coms_text+"\"</b>");
 			else
-				$('#cond_opt').html("<b class='w3-text-blue'>"+$('#coms_tit').html()+"</b>");
+				$('#cond_opt').html("");
+			$('#cond').html($('#coms_tit').html());
+			$('#part_nb').html(sessionStorage.coms_valid);
 		}
 	}
 	else // If vote only
 	{
 		if (localStorage.vote_min != "")
-			$('#cond_opt').html("<b class='w3-text-blue'>"+$('#vote_tit').html()+"</b> <i>("+localStorage.vote_min+"%)</i>");
+			$('#cond_opt').html($('#vote_cond').html()+" <b>"+localStorage.vote_min+"%</b>");
 		else
-			$('#cond_opt').html("<b class='w3-text-blue'>"+$('#vote_tit').html()+"</b>");
+			$('#cond_opt').html("");
+		$('#cond').html($('#vote_tit').html());
+		$('#part_nb').html(sessionStorage.vote_valid);
 	}
 
-	if(sessionStorage.num_of_draws >= 2)
-		$('#btn_win_list').removeClass("w3-hide");
+	list_winners = win_list.join(", @");
+	$('#com_view_text').html("<a href='https://deadz.github.io/SteemRandomDraw/'><center><img src='https://deadz.github.io/SteemRandomDraw/images/pub.png' width='90%' /></center></a><center><h2>"
+	+$('#sc2').text()+"<b>@"+list_winners+"</b>.</h2></center>");
 
-	$("#wait").addClass("w3-hide");
-	$('#result').removeClass("w3-hide");
+	if(sessionStorage.num_of_draws >= 2)
+		$('#btn_win_list').show();
+
+	$("#wait").hide();
+	$('#result').show();
 }
 
 function showErr(err)
 {
 		$('#err_body').html(err);
-		$('#err_div').removeClass("w3-hide");
-		$("#wait").addClass("w3-hide");
+		$('#err_div').show();
+		$("#wait").hide();
 }
 
 // END FUNCTION
@@ -385,24 +351,16 @@ const start = async function(link)
 {
 	try 
 	{
-	  await getAuthorPermlink(link);
-	  await getInfoBase();
+	  	await getAuthorPermlink(link);
 		await getInfoVote();
-		if($("#repl_box").is(":checked") && $("#coms_box").is(":checked")) // If coms reply is checked
-		{
-			await fetchReplies(sessionStorage.author, sessionStorage.permlink);
-		}
-		else
-		{
-			await getInfoComs();
-			await getRandomDraw();
-			getResult();
-		}
+		await getInfoComs();
+		await getRandomDraw();
+		getResult();
 	}
-	catch (error)
-	{
-		showErr(error);
-	}
+  	catch (error)
+  	{
+  		showErr(error);
+  	}
 }
 
 // EVENT
@@ -411,21 +369,23 @@ $("#coms_box").change(function()
 	if($("#coms_box").is(":checked"))
 	{
 		$("#coms_field").prop('disabled', false);
+		$("#coms_view").show();
 		if($("#vote_box").is(":checked")) // Vote & Coms
 		{
-			$("#choi_view").removeClass("w3-hide");
+			$("#choi_view").show();
 		}
 	}
 	else
 	{
-		$("#choi_view").addClass("w3-hide");
+		$("#choi_view").hide();
 		$("#coms_field").prop('disabled', true);
 		$("#coms_field").prop('value', "");
-		if(!$("#vote_box").is(":checked")) // Vote only
+		$("#coms_view").hide();
+		if(!$("#vote_box").is(":checked")) // Coms only
 		{
 			$("#vote_box").prop('checked', true);
-			$("#UpVoteSlider").prop('disabled', false);
-			$("#UpVoteSlider").fadeTo("slow", 1 );
+			$("#vote_field").prop('disabled', false);
+			$("#vote_view").show();
 		}
 	}
 }).change();
@@ -434,22 +394,24 @@ $("#vote_box").change(function()
 {
 	if($("#vote_box").is(":checked"))
 	{
-		$("#UpVoteSlider").prop('disabled', false);
-		$("#UpVoteSlider").fadeTo("slow", 1 );
+		$("#vote_field").prop('disabled', false);
+		$("#vote_view").show();
 		if($("#coms_box").is(":checked")) // Vote & Coms
 		{
-			$("#choi_view").removeClass("w3-hide");
+			$("#choi_view").show();
 		}
 	}
 	else
 	{
-		$("#UpVoteSlider").prop('disabled', true);
-		$("#UpVoteSlider").fadeTo("slow", 0.33 );
-		$("#choi_view").addClass("w3-hide");
+		$("#choi_view").hide();
+		$("#vote_field").prop('disabled', true);
+		$("#vote_field").prop('value', "");
+		$("#vote_view").hide();
 		if(!$("#coms_box").is(":checked")) // Vote only
 		{
 			$("#coms_box").prop('checked', true);
 			$("#coms_field").prop('disabled', false);
+			$("#coms_view").show();
 		}
 	}
 }).change();
@@ -464,15 +426,25 @@ $("#btn_win_list").click(function()
 	$("#win_view").show();
 });
 
+$("#choi_field").change(function() // Ephemeral
+{
+	if($('#choi_field').val() == "or")
+	{
+		$("#dble_box").prop('disabled', true);
+		$("#dble_box").prop('checked', false);
+	}
+	else
+	{
+		$("#dble_box").prop('disabled', false)
+	}
+}).change();
+
 $('#link_form').submit(function(event)
 {
 	event.preventDefault();
-	//console.log($("#wait"));
-	$("#wait").removeClass("w3-hide");
+	$("#wait").show();
 
 	// SAVE SET
-		if($("#repl_box").is(":checked")) localStorage.setItem("repl_box", true);
-		else localStorage.setItem("repl_box", false);
 		if($("#coms_box").is(":checked")) localStorage.setItem("coms_box", true);
 		else localStorage.setItem("coms_box", false);
 		if($("#vote_box").is(":checked")) localStorage.setItem("vote_box", true);
@@ -482,16 +454,16 @@ $('#link_form').submit(function(event)
 		if($("#dble_box").is(":checked")) localStorage.setItem("dble_box", true);
 		else localStorage.setItem("dble_box", false);
 
-		localStorage.setItem("choi_box", $('input[name=choi_field]:checked').val());
-		localStorage.setItem("vote_min", $('#UpVoteValue')[0].innerText);
+		localStorage.setItem("choi_box", $('#choi_field').val());
+		localStorage.setItem("vote_min", $('#vote_field')[0].value);
 		localStorage.setItem("coms_text", $('#coms_field')[0].value);
 	// END SAVE SET	
 
 	// RESET
 		$("#tab").html("");
 		$("#winner").html(reset);
-		$('#participants').addClass("w3-hide");
-		$('#result').addClass("w3-hide");
+		$('#participants').hide();
+		$('#result').hide();
 		vote_participant = [];
 		coms_participant = [];
 		participants = [];

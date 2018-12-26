@@ -1,4 +1,5 @@
 {
+	"login" : "Login",
 	"pagename": "Random Draw for steem",
 	"title": "Steem Random Draw",
 	"creatorstring": " Created by ",
@@ -8,6 +9,8 @@
 	"upvotes": "UpVotes",
 	"comments": "Comments",
 	"options": "3. Options : ",
+	"percentage": "Minimum percentage of UpVote",
+	"keyword": "Keyword",
 	"severaltimes": "A participant can win several times",
 	"bots": "Exclude bots",
 	"submit": "Submit",
@@ -16,9 +19,12 @@
 	"requirement": "Requirement : ",
 	"participants": " eligible participants for the draw.",
 	"viewwinnerslist": "View list of winners",
+	"post": "Post the result as a comment.",
 	"winnerslist": "List of winners",
-	"and" : "Upvotes and comments",
-	"or" : "Upvotes or comments",
+	"and" : "and",
+	"or" : "or",
 	"dev" : "Developed by ",
-	"reply" : "Commentary response included"
+	"design" : "Graphics by ",
+	"sc2" : "Here is the result of the draw, congratulations to ",
+	"comsend" : "Congratulations, the result is well posted!"
 }

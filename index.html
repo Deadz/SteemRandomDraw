@@ -4,92 +4,110 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
-	<script src="https://steemit.github.io/example-steemconnect-angular/sc2.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next/10.6.0/i18next.min.js" ></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/i18next-xhr-backend/1.5.1/i18nextXHRBackend.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js" ></script>
-	<script src="js/steemlogin.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-i18next/1.2.1/jquery-i18next.min.js" ></script>
 	<link rel="icon" href="favicon.ico" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title data-i18n="pagename"></title>
 </head>
 <body>
-	<div class="w3-light-grey w3-center w3-padding-large">
-		<img src="images/random.png" title="Steem Random Draw, logo by radudangratian" height="145px" /><br />
-	</div>
-	
-	<div class="w3-bar w3-dark-grey w3-margin-bottom">
-		<a class="lang-select w3-bar-item w3-button"><b class="lang-select">EN</b></a>
-		<a class="lang-select w3-bar-item w3-button"><b class="lang-select">FR</b></a>
-		<a class="lang-select w3-bar-item w3-button"><b class="lang-select">RU</b></a>
-		<a class="w3-bar-item w3-button w3-right" id="login"><span data-i18n="login"></span></a>
-		<a class="w3-bar-item w3-button w3-right" id="logout"><span id="user"></span> <i class='fa fa-power-off'></i></a>
+	<div class="w3-light-grey w3-center w3-padding-large w3-display-container w3-bottombar w3-border-dark-grey">
+		<a href="https://deadz.github.io/SteemRandomDraw/"><img class="w3-padding" src="images/random.png" title="Steem Random Draw, logo by radudangratian" height="145px" /></a>
+		<div class="w3-dropdown-hover w3-display-topright">
+      <button class="w3-button"><i class="fas fa-language fa-2x"></i> <i class="fa fa-caret-down fa-lg"></i></button>
+      <div class="w3-dropdown-content w3-bar-block w3-dark-grey">
+				<a class="lang-select w3-bar-item w3-button"><b class="lang-select">EN</b></a>
+				<a class="lang-select w3-bar-item w3-button"><b class="lang-select">FR</b></a>
+				<a class="lang-select w3-bar-item w3-button"><b class="lang-select">RU</b></a>
+			</div>
+		</div>
 	</div>
 
-	<div class="w3-row-padding w3-content" style="max-width:1400px">
+	<div class="w3-row-padding w3-content" style="max-width:1200px">
+		<div class="w3-half w3-margin-top">
+			<div class="w3-container w3-card w3-light-grey w3-padding-large w3-round-xxlarge">
 
-		<div class="w3-half">
-			<div id="err_div" class="w3-panel w3-red w3-display-container">
-		  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-large w3-display-topright">&times;</span>
+				<!-- Error start -->
+				<div id="err_div" class="w3-panel w3-red w3-display-container w3-border w3-round-xxlarge w3-hide">
+		  		<span onclick="this.parentElement.style.display='none'" class="w3-button w3-red w3-display-topright w3-margin w3-circle"><i class="fas fa-times-circle"></i></span>
 		  		<h3 id="err_title" data-i18n="errortitle"></h3>
 		  		<p id="err_body"></p>
-			</div>
-			<div class="w3-container w3-card w3-light-grey w3-padding-large">
-				<form class="w3-container" id="link_form" method="post">
+				</div>
+				<!-- Error end -->
+				<form class="w3-container w3-panel" id="link_form" method="post">
 
 					<label class="w3-text-dark-grey"><b data-i18n="link"></b></label>
-					<input class="w3-input w3-border w3-round w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" autofocus>
+					<input class="w3-input w3-border w3-round-xxlarge w3-section" type="text" name="link_field" placeholder="https://busy.org/@deadzy/..." id="link_field" autofocus>
 
 					<label class="w3-text-dark-grey"><b data-i18n="draw"></b></label>
-					<div class="w3-section w3-center">
-							<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
-							<label class="w3-text-dark-grey" id="vote_tit"><i class="fa fa-chevron-up" title="UpVote"></i> <b data-i18n="upvotes"></b> </label>
-							<input class="w3-check" type="checkbox" id="coms_box">
-							<label class="w3-text-dark-grey" id="coms_tit"><i class="fa fa-comments" title="Commentary"></i> <b data-i18n="comments"></b></label>
+					<div class="w3-section">
+						<fieldset class="w3-border w3-round-xxlarge">
+							<legend>
+								<input class="w3-check" type="checkbox" checked="checked" id="vote_box">
+								<label class="w3-text-dark-grey" for="vote_box" id="vote_tit">
+									<i class="fa fa-chevron-up fa-lg" title="UpVote"></i> <b data-i18n="upvotes"></b>
+								</label>
+							</legend>
+						
+							<div class="w3-row w3-margin">
+								<div class="w3-col w3-container slidecontainer" style="width: 80%;">
+								  <input type="range" min="0" max="100" value="0" class="slider" id="UpVoteSlider">
+								</div>
+								<div class="w3-rest w3-container">
+									<span class="w3-center" id="UpVoteValue"></span>%
+								</div>
+							</div>
+						</fieldset>
+						<p id="choi_view" class="w3-center w3-text-dark-grey">
+							<i class="fas fa-reply fa-rotate-270 fa-lg"></i>
+							<input id="and" class="w3-radio" type="radio" name="choi_field" value="and" checked>
+							<b><label data-i18n="and" for="and"></label></b>
+							|
+							<input id="or" class="w3-radio" type="radio" name="choi_field" value="or">
+							<b><label data-i18n="or" for="or"></label></b>
+							<i class="fas fa-reply fa-rotate-90 fa-lg"></i>
+						</p>
+						<fieldset class="w3-border w3-round-xxlarge">
+							<legend>
+								<input class="w3-check" type="checkbox" id="coms_box">
+								<label class="w3-text-dark-grey" for="coms_box" id="coms_tit">
+									<i class="fa fa-comments fa-lg" title="Commentary"></i> <b data-i18n="comments"></b>
+								</label>
+							</legend>
+					  	<input class="w3-input w3-border w3-round-xxlarge" type="text" name="coms_field" placeholder="Keyword (Optional)" id="coms_field" value="">
+					  </fieldset>
 					</div>
 					<label class="w3-text-dark-grey"><b data-i18n="options"></b></label>
-					<fieldset class="w3-section">
-						<p id="choi_view" class="w3-center w3-text-dark-grey">
-							<i class="fa fa-chevron-up" title="UpVote"></i> <b data-i18n="upvotes"></b>
-							<select id="choi_field" name="choi_field">
-								<option data-i18n="and" value="and" selected></option>
-								<option data-i18n="or" value="or"></option>
-							</select>
-							<i class="fa fa-comments" title="Commentary"></i> <b data-i18n="comments"></b>
-						</p>
-						<p id="vote_view">
-							<label class="w3-text-dark-grey"><b id="vote_cond" data-i18n="percentage"></b></label>
-							<input class="w3-input w3-border w3-round" type="number" name="vote_field" placeholder="(Optional)" id="vote_field" min="0" max="100">
-						</p>
-						<p id="coms_view">
-							<label class="w3-text-dark-grey"><b id="coms_cond" data-i18n="keyword"></b></label>
-							<input class="w3-input w3-border w3-round" type="text" name="coms_field" placeholder="(Optional)" id="coms_field" value="">
-						</p>
-						<p>
-							<input class="w3-check" type="checkbox" id="dble_box">
-							<label class="w3-text-dark-grey"><b data-i18n="severaltimes"></b></label>
-						</p>
-						<p>
-							<input class="w3-check" type="checkbox" id="bots_box">
-							<label class="w3-text-dark-grey"><b data-i18n="bots"></b></label>
-						</p>
-					</fieldset>
+					<p>
+						<input class="w3-check" type="checkbox" id="dble_box">
+						<label class="w3-text-dark-grey" for="dble_box"><i class="fas fa-list-ol fa-lg"></i> <b data-i18n="severaltimes"></b></label>
+					</p>
+					<p>
+						<input class="w3-check" type="checkbox" id="repl_box">
+						<label class="w3-text-dark-grey" for="repl_box"><i class="fas fa-reply"></i> <b data-i18n="reply"></b></label>
+					</p>
+					<p>
+						<input class="w3-check" type="checkbox" id="bots_box">
+						<label class="w3-text-dark-grey" for="bots_box"><i class="fas fa-robot fa-lg"></i> <b data-i18n="bots"></b></label>
+					</p>
 					<button class="w3-button w3-block w3-round-large w3-dark-gray w3-padding" type="submit" id="btn_form" data-i18n="submit"></button>
 				</form>
 			</div>
 		</div>
-		<span id="comsend" data-i18n="comsend" style="visibility: hidden;"></span>
-		<div class="w3-half w3-animate-right"  id="wait">
-			<p class="w3-center"><i class="fa fa-spinner w3-spin" style="font-size:64px"></i></p>
+
+		<!-- Spinner start -->
+		<div class="w3-half w3-animate-right w3-margin-top w3-hide" id="wait">
+			<p class="w3-center"><i class="fa fa-spinner fa-4x w3-spin"></i></p>
 		</div>
-		<div class="w3-half w3-animate-right" id="result">
-			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom">
+		<!-- Spinner end -->
+
+		<div class="w3-half w3-animate-right w3-margin-top w3-hide" id="result">
+			<div class="w3-container w3-card w3-padding-large w3-center w3-margin-bottom w3-round-xxlarge">
 				<h3 data-i18n="winner"></h3>
-				<div class="w3-panel w3-pale-blue w3-topbar w3-bottombar w3-border-indigo" id="winner"><h1 data-i18n="nobody"></h1></div>
-				<span id="sc2" data-i18n="sc2" style="visibility: hidden;"></span>
-				<button class="w3-button w3-block w3-round w3-dark-gray w3-padding" id="post" data-i18n="post" onclick="document.getElementById('com_view').style.display='block'"></button>
-				<br>
+				<div class="w3-panel w3-light-gray w3-border-blue w3-topbar w3-bottombar w3-text-indigo w3-round-xxlarge" id="winner"><h2 data-i18n="nobody"></h2></div>
 				<table class="w3-table-all w3-centered">
 					<tr class="w3-light-grey">
 						<th><i class="fa fa-chevron-up" title="UpVote"></i> <span data-i18n="upvotes"></span></th>
@@ -115,13 +133,14 @@
 		   			<tbody id="tab">
 	   				</tbody>
 				</table>
+				<br />
 			</div>
 		</div>
 
 		<div class="w3-modal" id="win_view">
-			<div class="w3-modal-content w3-card">
-				<header class="w3-container w3-dark-grey w3-center"> 
-					<span onclick="document.getElementById('win_view').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+			<div class="w3-modal-content w3-card w3-round-xxlarge">
+				<header class="w3-container w3-dark-grey w3-center w3-round-xxlarge"> 
+					<span onclick="document.getElementById('win_view').style.display='none'" class="w3-button w3-text-white w3-transparent w3-display-topright w3-margin w3-circle"><i class="fas fa-times-circle fa-gl"></i></span>
 					<h2 data-i18n="winnerslist"></h2>
 				</header>
 
@@ -130,11 +149,11 @@
 						<thead>	
 							<tr class="w3-light-grey">
 								<th>N°</th>
-			      				<th>Pseudo</th>
-			   				</tr>
-			   			</thead>
-			   			<tbody id="win_tab">
-		   				</tbody>
+			      		<th>Pseudo</th>
+			   			</tr>
+			   		</thead>
+			   		<tbody id="win_tab">
+		   			</tbody>
 					</table>
 				</div>
 			</div>
@@ -158,11 +177,11 @@
 
 	</div>
 	<footer class="w3-container w3-dark-grey w3-center w3-margin-top">
-			<p><span data-i18n="dev"></span><b><a href="https://busy.org/@clevershovel" target='_blank'>@clevershovel</a></b> & <b><a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></b>. <span data-i18n="design"></span><b><a href="https://busy.org/@radudangratian" target='_blank'>@radudangratian</a></b></p>
+			<p><span data-i18n="dev"></span><b><a href="https://busy.org/@deadzy" target='_blank'>@deadzy</a></b>. <span>Old version</span> <a href="V1.3/">V1.3</a></p>
 		</footer>
 	<script>
-		var url1 = "js/randomDraw.js";
-		$.getScript(url1);
+		$.getScript("js/randomDraw.js");
+		$.getScript("js/slider.js");
 
 		if(localStorage.lng != "") lang = localStorage.lng;
 		else lang = 'EN';
